@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('TuSuper - Mi Panel')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <div class="container py-4">
+        <div th:replace="~{fragments/layout :: alerts}"></div>
+        
+        <div class="row mb-4">
+            <div class="col">
+                <h2><i class="bi bi-house"></i> Bienvenido, <span th:text="${usuario.nombre}">Usuario</span></h2>
+                <p class="text-muted">Tu tienda local favorita</p>
+            </div>
+        </div>
+        
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6>Carrito</h6>
+                                <h2 th:text="${itemsCarrito}">0</h2>
+                            </div>
+                            <i class="bi bi-cart3 display-4 opacity-50"></i>
+                        </div>
+                        <a th:href="@{/usuario/carrito}" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6>Mis Pedidos</h6>
+                                <h2 th:text="${totalPedidos}">0</h2>
+                            </div>
+                            <i class="bi bi-bag display-4 opacity-50"></i>
+                        </div>
+                        <a th:href="@{/usuario/pedidos}" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-warning">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6>Ver Productos</h6>
+                                <h2><i class="bi bi-arrow-right"></i></h2>
+                            </div>
+                            <i class="bi bi-grid display-4 opacity-50"></i>
+                        </div>
+                        <a th:href="@{/usuario/productos}" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="bi bi-clock-history"></i> Pedidos Recientes</h5>
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${#lists.isEmpty(pedidosRecientes)}" class="text-center text-muted py-4">
+                            <i class="bi bi-bag-x display-4"></i>
+                            <p class="mt-2">No tienes pedidos aún</p>
+                            <a th:href="@{/usuario/productos}" class="btn btn-tusuper">
+                                <i class="bi bi-cart-plus"></i> Hacer mi primer pedido
+                            </a>
+                        </div>
+                        <div th:unless="${#lists.isEmpty(pedidosRecientes)}" class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Pedido</th>
+                                        <th>Fecha</th>
+                                        <th>Total</th>
+                                        <th>Estado</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="pedido : ${pedidosRecientes}">
+                                        <td th:text="${pedido.numeroPedido}">PED-001</td>
+                                        <td th:text="${#temporals.format(pedido.fechaPedido, 'dd/MM/yyyy HH:mm')}">01/01/2024</td>
+                                        <td class="precio" th:text="'$' + ${#numbers.formatDecimal(pedido.total, 0, 'COMMA', 0, 'POINT')}">$0</td>
+                                        <td>
+                                            <span class="badge" th:classappend="'estado-' + ${pedido.estado}" 
+                                                  th:text="${pedido.estado}">PENDIENTE</span>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/usuario/pedidos/{id}(id=${pedido.id})}" 
+                                               class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="bi bi-person"></i> Mi Información</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Email:</strong> <span th:text="${usuario.email}">email@example.com</span></p>
+                        <p><strong>Teléfono:</strong> <span th:text="${usuario.telefono ?: 'No registrado'}">000-000-0000</span></p>
+                        <p><strong>Dirección:</strong> <span th:text="${usuario.direccion ?: 'No registrada'}">Dirección</span></p>
+                        <a th:href="@{/usuario/perfil}" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-pencil"></i> Editar Perfil
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+</body>
+</html>

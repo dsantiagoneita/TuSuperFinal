@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('TuSuper - Detalle Pedido')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <div class="container py-4">
+        <div th:replace="~{fragments/layout :: alerts}"></div>
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2><i class="bi bi-bag"></i> Pedido <span th:text="${pedido.numeroPedido}">PED-001</span></h2>
+                <span class="badge fs-6" th:classappend="'estado-' + ${pedido.estado}" th:text="${pedido.estado}">PENDIENTE</span>
+            </div>
+            <a th:href="@{/usuario/pedidos}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="bi bi-list-check"></i> Productos</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th class="text-center">Cantidad</th>
+                                    <th class="text-end">Precio</th>
+                                    <th class="text-end">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="item : ${pedido.items}">
+                                    <td>
+                                        <strong th:text="${item.producto.nombre}">Producto</strong>
+                                        <br><small class="text-muted" th:text="${item.producto.marca}">Marca</small>
+                                    </td>
+                                    <td class="text-center" th:text="${item.cantidad}">1</td>
+                                    <td class="text-end" th:text="'$' + ${#numbers.formatDecimal(item.precioUnitario, 0, 'COMMA', 0, 'POINT')}">$0</td>
+                                    <td class="text-end precio" th:text="'$' + ${#numbers.formatDecimal(item.subtotal, 0, 'COMMA', 0, 'POINT')}">$0</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3" class="text-end">Total:</th>
+                                    <th class="text-end precio fs-5" th:text="'$' + ${#numbers.formatDecimal(pedido.total, 0, 'COMMA', 0, 'POINT')} + ' COP'">$0</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                
+                <div th:if="${pedido.estado.name() == 'PENDIENTE' || pedido.estado.name() == 'CONFIRMADO'}" class="card border-warning">
+                    <div class="card-body text-center">
+                        <p class="mb-3">¿Necesitas cancelar este pedido?</p>
+                        <form th:action="@{/usuario/pedidos/{id}/cancelar(id=${pedido.id})}" method="post">
+                            <button type="submit" class="btn btn-outline-danger" 
+                                    onclick="return confirm('¿Estás seguro de cancelar este pedido?')">
+                                <i class="bi bi-x-circle"></i> Cancelar Pedido
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="bi bi-info-circle"></i> Información</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Fecha:</strong><br>
+                            <span th:text="${#temporals.format(pedido.fechaPedido, 'dd/MM/yyyy HH:mm')}">01/01/2024</span>
+                        </p>
+                        <p><strong>Dirección de entrega:</strong><br>
+                            <span th:text="${pedido.direccionEntrega}">Dirección</span>
+                        </p>
+                        <p th:if="${pedido.observaciones}">
+                            <strong>Observaciones:</strong><br>
+                            <span th:text="${pedido.observaciones}">Obs</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="bi bi-clock-history"></i> Estado del Pedido</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center" 
+                                     style="width: 30px; height: 30px;">
+                                    <i class="bi bi-check"></i>
+                                </div>
+                                <span class="ms-2">Pedido recibido</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3" 
+                                 th:classappend="${pedido.estado.name() == 'PENDIENTE'} ? 'text-muted' : ''">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center" 
+                                     th:classappend="${pedido.estado.ordinal() >= 1} ? 'bg-success text-white' : 'bg-light'"
+                                     style="width: 30px; height: 30px;">
+                                    <i class="bi bi-check" th:if="${pedido.estado.ordinal() >= 1}"></i>
+                                    <span th:unless="${pedido.estado.ordinal() >= 1}">2</span>
+                                </div>
+                                <span class="ms-2">Confirmado</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3"
+                                 th:classappend="${pedido.estado.ordinal() < 2} ? 'text-muted' : ''">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center"
+                                     th:classappend="${pedido.estado.ordinal() >= 2} ? 'bg-success text-white' : 'bg-light'"
+                                     style="width: 30px; height: 30px;">
+                                    <i class="bi bi-check" th:if="${pedido.estado.ordinal() >= 2}"></i>
+                                    <span th:unless="${pedido.estado.ordinal() >= 2}">3</span>
+                                </div>
+                                <span class="ms-2">En preparación</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3"
+                                 th:classappend="${pedido.estado.ordinal() < 4} ? 'text-muted' : ''">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center"
+                                     th:classappend="${pedido.estado.ordinal() >= 4} ? 'bg-success text-white' : 'bg-light'"
+                                     style="width: 30px; height: 30px;">
+                                    <i class="bi bi-check" th:if="${pedido.estado.ordinal() >= 4}"></i>
+                                    <span th:unless="${pedido.estado.ordinal() >= 4}">4</span>
+                                </div>
+                                <span class="ms-2">En camino</span>
+                            </div>
+                            <div class="d-flex align-items-center"
+                                 th:classappend="${pedido.estado.ordinal() < 5} ? 'text-muted' : ''">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center"
+                                     th:classappend="${pedido.estado.ordinal() >= 5} ? 'bg-success text-white' : 'bg-light'"
+                                     style="width: 30px; height: 30px;">
+                                    <i class="bi bi-check" th:if="${pedido.estado.ordinal() >= 5}"></i>
+                                    <span th:unless="${pedido.estado.ordinal() >= 5}">5</span>
+                                </div>
+                                <span class="ms-2">Entregado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+</body>
+</html>

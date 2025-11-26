@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('TuSuper - Producto')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 p-0">
+                <div th:replace="~{fragments/layout :: sidebar-tendero}"></div>
+            </div>
+            <div class="col-md-10 py-4">
+                <div th:replace="~{fragments/layout :: alerts}"></div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>
+                        <i class="bi bi-box-seam"></i> 
+                        <span th:text="${producto.id != null} ? 'Editar Producto' : 'Nuevo Producto'">Producto</span>
+                    </h2>
+                    <a th:href="@{/tendero/productos}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Volver
+                    </a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <form th:action="@{/tendero/productos/guardar}" th:object="${producto}" method="post">
+                            <input type="hidden" th:field="*{id}">
+                            
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="mb-3">
+                                        <label class="form-label">Nombre del Producto *</label>
+                                        <input type="text" class="form-control" th:field="*{nombre}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Código de Barras</label>
+                                        <input type="text" class="form-control" th:field="*{codigoBarras}" 
+                                               placeholder="Escanear o escribir">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Descripción</label>
+                                <textarea class="form-control" th:field="*{descripcion}" rows="2"></textarea>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">Precio (COP) *</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="number" class="form-control" th:field="*{precio}" 
+                                                   min="0" step="100" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">Cantidad *</label>
+                                        <input type="number" class="form-control" th:field="*{cantidad}" 
+                                               min="0" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">Stock Mínimo</label>
+                                        <input type="number" class="form-control" th:field="*{cantidadMinima}" min="0">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">Categoría</label>
+                                        <input type="text" class="form-control" th:field="*{categoria}" 
+                                               list="categoriasList" placeholder="Seleccionar o escribir">
+                                        <datalist id="categoriasList">
+                                            <option th:each="cat : ${categorias}" th:value="${cat}"></option>
+                                        </datalist>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Marca</label>
+                                        <input type="text" class="form-control" th:field="*{marca}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">URL de Imagen</label>
+                                        <input type="text" class="form-control" th:field="*{imagen}" 
+                                               placeholder="/images/producto.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" th:field="*{activo}" id="activo">
+                                    <label class="form-check-label" for="activo">Producto Activo</label>
+                                </div>
+                            </div>
+                            
+                            <hr>
+                            
+                            <div class="d-flex justify-content-end gap-2">
+                                <a th:href="@{/tendero/productos}" class="btn btn-outline-secondary">Cancelar</a>
+                                <button type="submit" class="btn btn-tusuper">
+                                    <i class="bi bi-check"></i> Guardar Producto
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('TuSuper - Pedidos')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 p-0">
+                <div th:replace="~{fragments/layout :: sidebar-admin}"></div>
+            </div>
+            <div class="col-md-10 py-4">
+                <h2 class="mb-4"><i class="bi bi-bag"></i> Todos los Pedidos</h2>
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form class="row g-3" th:action="@{/admin/pedidos}" method="get">
+                            <div class="col-auto">
+                                <select name="estado" class="form-select">
+                                    <option value="">Todos los estados</option>
+                                    <option th:each="est : ${estados}" th:value="${est}" th:text="${est}"
+                                            th:selected="${estadoSeleccionado == est.name()}">Estado</option>
+                                </select>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-tusuper">
+                                    <i class="bi bi-filter"></i> Filtrar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Pedido</th>
+                                        <th>Fecha</th>
+                                        <th>Cliente</th>
+                                        <th>Items</th>
+                                        <th>Total</th>
+                                        <th>Estado</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="pedido : ${pedidos}">
+                                        <td><strong th:text="${pedido.numeroPedido}">PED-001</strong></td>
+                                        <td th:text="${#temporals.format(pedido.fechaPedido, 'dd/MM/yyyy HH:mm')}">01/01</td>
+                                        <td th:text="${pedido.usuario.nombre}">Cliente</td>
+                                        <td th:text="${pedido.cantidadItems}">0</td>
+                                        <td class="precio" th:text="'$' + ${#numbers.formatDecimal(pedido.total, 0, 'COMMA', 0, 'POINT')}">$0</td>
+                                        <td>
+                                            <span class="badge" th:classappend="'estado-' + ${pedido.estado}" 
+                                                  th:text="${pedido.estado}">ESTADO</span>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/admin/pedidos/{id}(id=${pedido.id})}" 
+                                               class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+</body>
+</html>
