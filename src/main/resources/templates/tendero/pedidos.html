@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('TuSuper - Gestión de Pedidos')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 p-0">
+                <div th:replace="~{fragments/layout :: sidebar-tendero}"></div>
+            </div>
+            <div class="col-md-10 py-4">
+                <div th:replace="~{fragments/layout :: alerts}"></div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-bag-check"></i> Gestión de Pedidos</h2>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form class="row g-3" th:action="@{/tendero/pedidos}" method="get">
+                            <div class="col-auto">
+                                <select name="estado" class="form-select">
+                                    <option value="">Todos los estados</option>
+                                    <option th:each="est : ${estados}" th:value="${est}" th:text="${est}"
+                                            th:selected="${estadoSeleccionado == est.name()}">Estado</option>
+                                </select>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-tusuper">
+                                    <i class="bi bi-filter"></i> Filtrar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div th:if="${#lists.isEmpty(pedidos)}" class="text-center py-5">
+                            <i class="bi bi-inbox display-1 text-muted"></i>
+                            <p class="mt-3">No hay pedidos con este filtro</p>
+                        </div>
+                        <div class="table-responsive" th:unless="${#lists.isEmpty(pedidos)}">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Pedido</th>
+                                        <th>Fecha</th>
+                                        <th>Cliente</th>
+                                        <th>Dirección</th>
+                                        <th>Items</th>
+                                        <th>Total</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="pedido : ${pedidos}">
+                                        <td><strong th:text="${pedido.numeroPedido}">PED-001</strong></td>
+                                        <td th:text="${#temporals.format(pedido.fechaPedido, 'dd/MM HH:mm')}">01/01</td>
+                                        <td th:text="${pedido.usuario.nombre}">Cliente</td>
+                                        <td>
+                                            <small th:text="${#strings.abbreviate(pedido.direccionEntrega, 30)}">Dirección</small>
+                                        </td>
+                                        <td th:text="${pedido.cantidadItems}">0</td>
+                                        <td class="precio" th:text="'$' + ${#numbers.formatDecimal(pedido.total, 0, 'COMMA', 0, 'POINT')}">$0</td>
+                                        <td>
+                                            <span class="badge" th:classappend="'estado-' + ${pedido.estado}" 
+                                                  th:text="${pedido.estado}">ESTADO</span>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/tendero/pedidos/{id}(id=${pedido.id})}" 
+                                               class="btn btn-sm btn-primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+</body>
+</html>

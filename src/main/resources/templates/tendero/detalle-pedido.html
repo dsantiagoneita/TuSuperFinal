@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('TuSuper - Detalle Pedido')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 p-0">
+                <div th:replace="~{fragments/layout :: sidebar-tendero}"></div>
+            </div>
+            <div class="col-md-10 py-4">
+                <div th:replace="~{fragments/layout :: alerts}"></div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2><i class="bi bi-bag"></i> Pedido <span th:text="${pedido.numeroPedido}">PED-001</span></h2>
+                        <span class="badge fs-6" th:classappend="'estado-' + ${pedido.estado}" th:text="${pedido.estado}">ESTADO</span>
+                    </div>
+                    <a th:href="@{/tendero/pedidos}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Volver
+                    </a>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card mb-4">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0"><i class="bi bi-list-check"></i> Productos del Pedido</h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th class="text-center">Cantidad</th>
+                                            <th class="text-end">Precio Unit.</th>
+                                            <th class="text-end">Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="item : ${pedido.items}">
+                                            <td>
+                                                <strong th:text="${item.producto.nombre}">Producto</strong>
+                                                <br><small class="text-muted">Código: <span th:text="${item.producto.codigoBarras ?: 'N/A'}">000</span></small>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge bg-primary" th:text="${item.cantidad}">1</span>
+                                            </td>
+                                            <td class="text-end" th:text="'$' + ${#numbers.formatDecimal(item.precioUnitario, 0, 'COMMA', 0, 'POINT')}">$0</td>
+                                            <td class="text-end precio" th:text="'$' + ${#numbers.formatDecimal(item.subtotal, 0, 'COMMA', 0, 'POINT')}">$0</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="3" class="text-end">Total:</th>
+                                            <th class="text-end precio fs-4" th:text="'$' + ${#numbers.formatDecimal(pedido.total, 0, 'COMMA', 0, 'POINT')} + ' COP'">$0</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0"><i class="bi bi-gear"></i> Cambiar Estado</h5>
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{/tendero/pedidos/{id}/estado(id=${pedido.id})}" method="post" class="row g-3">
+                                    <div class="col-md-6">
+                                        <select name="estado" class="form-select">
+                                            <option th:each="est : ${estados}" th:value="${est}" th:text="${est}"
+                                                    th:selected="${pedido.estado == est}">Estado</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-tusuper">
+                                            <i class="bi bi-check"></i> Actualizar Estado
+                                        </button>
+                                    </div>
+                                </form>
+                                <hr>
+                                <div class="row text-center">
+                                    <div class="col">
+                                        <form th:action="@{/tendero/pedidos/{id}/estado(id=${pedido.id})}" method="post" class="d-inline">
+                                            <input type="hidden" name="estado" value="EN_PREPARACION">
+                                            <button type="submit" class="btn btn-info" th:disabled="${pedido.estado.name() != 'CONFIRMADO'}">
+                                                <i class="bi bi-box-seam"></i> Iniciar Preparación
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <form th:action="@{/tendero/pedidos/{id}/estado(id=${pedido.id})}" method="post" class="d-inline">
+                                            <input type="hidden" name="estado" value="LISTO">
+                                            <button type="submit" class="btn btn-success" th:disabled="${pedido.estado.name() != 'EN_PREPARACION'}">
+                                                <i class="bi bi-check-circle"></i> Marcar Listo
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <form th:action="@{/tendero/pedidos/{id}/estado(id=${pedido.id})}" method="post" class="d-inline">
+                                            <input type="hidden" name="estado" value="EN_CAMINO">
+                                            <button type="submit" class="btn btn-warning" th:disabled="${pedido.estado.name() != 'LISTO'}">
+                                                <i class="bi bi-truck"></i> Enviar
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <form th:action="@{/tendero/pedidos/{id}/estado(id=${pedido.id})}" method="post" class="d-inline">
+                                            <input type="hidden" name="estado" value="ENTREGADO">
+                                            <button type="submit" class="btn btn-primary" th:disabled="${pedido.estado.name() != 'EN_CAMINO'}">
+                                                <i class="bi bi-house-check"></i> Entregado
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0"><i class="bi bi-person"></i> Cliente</h5>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Nombre:</strong><br><span th:text="${pedido.usuario.nombre}">Cliente</span></p>
+                                <p><strong>Email:</strong><br><span th:text="${pedido.usuario.email}">email@example.com</span></p>
+                                <p><strong>Teléfono:</strong><br><span th:text="${pedido.usuario.telefono ?: 'No registrado'}">000-000-0000</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0"><i class="bi bi-geo-alt"></i> Entrega</h5>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Dirección:</strong><br><span th:text="${pedido.direccionEntrega}">Dirección</span></p>
+                                <p><strong>Fecha del pedido:</strong><br>
+                                    <span th:text="${#temporals.format(pedido.fechaPedido, 'dd/MM/yyyy HH:mm')}">01/01/2024</span>
+                                </p>
+                                <p th:if="${pedido.observaciones}">
+                                    <strong>Observaciones:</strong><br>
+                                    <span class="text-warning" th:text="${pedido.observaciones}">Obs</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+</body>
+</html>

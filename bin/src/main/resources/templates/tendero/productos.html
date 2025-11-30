@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('TuSuper - Productos')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 p-0">
+                <div th:replace="~{fragments/layout :: sidebar-tendero}"></div>
+            </div>
+            <div class="col-md-10 py-4">
+                <div th:replace="~{fragments/layout :: alerts}"></div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-box-seam"></i> Gestión de Productos</h2>
+                    <a th:href="@{/tendero/productos/nuevo}" class="btn btn-tusuper">
+                        <i class="bi bi-plus"></i> Nuevo Producto
+                    </a>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="btn-group flex-wrap">
+                            <a th:href="@{/tendero/productos}" 
+                               th:classappend="${categoriaSeleccionada == null} ? 'active' : ''"
+                               class="btn btn-outline-success">Todos</a>
+                            <a th:each="cat : ${categorias}" 
+                               th:href="@{/tendero/productos(categoria=${cat})}"
+                               th:classappend="${categoriaSeleccionada == cat} ? 'active' : ''"
+                               th:text="${cat}"
+                               class="btn btn-outline-success">Categoría</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Producto</th>
+                                        <th>Categoría</th>
+                                        <th>Precio</th>
+                                        <th>Stock</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="producto : ${productos}" th:classappend="${producto.tieneStockBajo()} ? 'table-warning' : ''">
+                                        <td><code th:text="${producto.codigoBarras ?: 'N/A'}">0000</code></td>
+                                        <td>
+                                            <strong th:text="${producto.nombre}">Producto</strong>
+                                            <br><small class="text-muted" th:text="${producto.marca}">Marca</small>
+                                        </td>
+                                        <td><span class="badge bg-secondary" th:text="${producto.categoria}">Cat</span></td>
+                                        <td class="precio" th:text="'$' + ${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 0, 'POINT')}">$0</td>
+                                        <td>
+                                            <span th:classappend="${producto.tieneStockBajo()} ? 'text-danger fw-bold' : ''" 
+                                                  th:text="${producto.cantidad}">0</span>
+                                            <i th:if="${producto.tieneStockBajo()}" class="bi bi-exclamation-triangle text-danger"></i>
+                                        </td>
+                                        <td>
+                                            <span th:if="${producto.activo}" class="badge bg-success">Activo</span>
+                                            <span th:unless="${producto.activo}" class="badge bg-secondary">Inactivo</span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <a th:href="@{/tendero/productos/{id}/editar(id=${producto.id})}" 
+                                                   class="btn btn-outline-primary" title="Editar">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-outline-info" 
+                                                        data-bs-toggle="modal" th:data-bs-target="'#stockModal' + ${producto.id}"
+                                                        title="Ajustar Stock">
+                                                    <i class="bi bi-plus-slash-minus"></i>
+                                                </button>
+                                                <form th:if="${producto.activo}" th:action="@{/tendero/productos/{id}/desactivar(id=${producto.id})}" 
+                                                      method="post" class="d-inline">
+                                                    <button type="submit" class="btn btn-outline-danger" title="Desactivar">
+                                                        <i class="bi bi-x-circle"></i>
+                                                    </button>
+                                                </form>
+                                                <form th:unless="${producto.activo}" th:action="@{/tendero/productos/{id}/activar(id=${producto.id})}" 
+                                                      method="post" class="d-inline">
+                                                    <button type="submit" class="btn btn-outline-success" title="Activar">
+                                                        <i class="bi bi-check-circle"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modales de Stock -->
+                <div th:each="producto : ${productos}">
+                    <div class="modal fade" th:id="'stockModal' + ${producto.id}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Ajustar Stock: <span th:text="${producto.nombre}">Producto</span></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <form th:action="@{/tendero/productos/{id}/stock(id=${producto.id})}" method="post">
+                                    <div class="modal-body">
+                                        <p>Stock actual: <strong th:text="${producto.cantidad}">0</strong></p>
+                                        <div class="mb-3">
+                                            <label class="form-label">Cantidad a agregar/quitar</label>
+                                            <input type="number" class="form-control" name="cantidad" value="0" 
+                                                   placeholder="Use números negativos para reducir">
+                                            <small class="text-muted">Use números positivos para agregar, negativos para reducir</small>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-tusuper">Actualizar Stock</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+</body>
+</html>

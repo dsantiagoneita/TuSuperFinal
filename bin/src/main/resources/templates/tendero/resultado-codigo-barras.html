@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('TuSuper - Código de Barras')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 p-0">
+                <div th:replace="~{fragments/layout :: sidebar-tendero}"></div>
+            </div>
+            <div class="col-md-10 py-4">
+                <h2 class="mb-4"><i class="bi bi-upc-scan"></i> Búsqueda por Código de Barras</h2>
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form th:action="@{/tendero/productos/codigo-barras}" method="get" class="row g-3">
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-upc"></i></span>
+                                    <input type="text" class="form-control" name="codigo" 
+                                           th:value="${codigoBuscado}" placeholder="Escanear o escribir código de barras"
+                                           autofocus>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-tusuper">
+                                    <i class="bi bi-search"></i> Buscar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div th:if="${mensaje}" class="alert alert-warning">
+                    <i class="bi bi-exclamation-circle"></i> <span th:text="${mensaje}">Mensaje</span>
+                </div>
+                
+                <div th:if="${producto != null}" class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="bi bi-check-circle"></i> Producto Encontrado</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h4 th:text="${producto.nombre}">Producto</h4>
+                                <p class="text-muted" th:text="${producto.descripcion}">Descripción</p>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <th>Código de Barras:</th>
+                                        <td><code th:text="${producto.codigoBarras}">0000</code></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Categoría:</th>
+                                        <td th:text="${producto.categoria}">Categoría</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Marca:</th>
+                                        <td th:text="${producto.marca}">Marca</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Precio:</th>
+                                        <td class="precio fs-5" th:text="'$' + ${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 0, 'POINT')} + ' COP'">$0</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Stock:</th>
+                                        <td th:classappend="${producto.tieneStockBajo()} ? 'text-danger' : 'text-success'">
+                                            <strong th:text="${producto.cantidad}">0</strong> unidades
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <a th:href="@{/tendero/productos/{id}/editar(id=${producto.id})}" 
+                                   class="btn btn-tusuper btn-lg">
+                                    <i class="bi bi-pencil"></i> Editar Producto
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('TuSuper - Detalle Usuario')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 p-0">
+                <div th:replace="~{fragments/layout :: sidebar-admin}"></div>
+            </div>
+            <div class="col-md-10 py-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-person"></i> <span th:text="${usuario.nombre}">Usuario</span></h2>
+                    <a th:href="@{/admin/usuarios}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Volver
+                    </a>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center mb-3"
+                                     style="width: 100px; height: 100px;">
+                                    <i class="bi bi-person display-4"></i>
+                                </div>
+                                <h5 th:text="${usuario.nombre}">Usuario</h5>
+                                <p class="text-muted" th:text="${usuario.email}">email@example.com</p>
+                                <div class="mb-3">
+                                    <span th:each="rol : ${usuario.roles}" class="badge bg-info me-1" 
+                                          th:text="${#strings.replace(rol.nombre, 'ROLE_', '')}">ROL</span>
+                                </div>
+                                <span th:if="${usuario.activo}" class="badge bg-success">Activo</span>
+                                <span th:unless="${usuario.activo}" class="badge bg-secondary">Inactivo</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0">Información</h6>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Teléfono:</strong><br><span th:text="${usuario.telefono ?: 'No registrado'}">-</span></p>
+                                <p><strong>Dirección:</strong><br><span th:text="${usuario.direccion ?: 'No registrada'}">-</span></p>
+                                <p><strong>Registro:</strong><br><span th:text="${#temporals.format(usuario.fechaRegistro, 'dd/MM/yyyy')}">-</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0"><i class="bi bi-bag"></i> Pedidos del Usuario</h5>
+                            </div>
+                            <div class="card-body">
+                                <div th:if="${#lists.isEmpty(pedidos)}" class="text-center py-4 text-muted">
+                                    <i class="bi bi-inbox display-4"></i>
+                                    <p>Este usuario no tiene pedidos</p>
+                                </div>
+                                <div th:unless="${#lists.isEmpty(pedidos)}" class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Pedido</th>
+                                                <th>Fecha</th>
+                                                <th>Total</th>
+                                                <th>Estado</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="pedido : ${pedidos}">
+                                                <td th:text="${pedido.numeroPedido}">PED-001</td>
+                                                <td th:text="${#temporals.format(pedido.fechaPedido, 'dd/MM/yyyy')}">01/01/2024</td>
+                                                <td class="precio" th:text="'$' + ${#numbers.formatDecimal(pedido.total, 0, 'COMMA', 0, 'POINT')}">$0</td>
+                                                <td>
+                                                    <span class="badge" th:classappend="'estado-' + ${pedido.estado}" 
+                                                          th:text="${pedido.estado}">ESTADO</span>
+                                                </td>
+                                                <td>
+                                                    <a th:href="@{/admin/pedidos/{id}(id=${pedido.id})}" 
+                                                       class="btn btn-sm btn-outline-primary">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+</body>
+</html>

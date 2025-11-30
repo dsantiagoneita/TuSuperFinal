@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('TuSuper - Inventario')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 p-0">
+                <div th:replace="~{fragments/layout :: sidebar-tendero}"></div>
+            </div>
+            <div class="col-md-10 py-4">
+                <div th:replace="~{fragments/layout :: alerts}"></div>
+                
+                <h2 class="mb-4"><i class="bi bi-clipboard-data"></i> Inventario</h2>
+                
+                <div class="row g-4 mb-4">
+                    <div class="col-md-4">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <h6>Total Productos</h6>
+                                <h2 th:text="${totalProductos}">0</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h6>Productos Activos</h6>
+                                <h2 th:text="${productosActivos}">0</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-danger text-white">
+                            <div class="card-body">
+                                <h6>Stock Bajo</h6>
+                                <h2 th:text="${#lists.size(stockBajo)}">0</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div th:if="${!#lists.isEmpty(stockBajo)}" class="card mb-4 border-danger">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Productos con Stock Bajo</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Stock Actual</th>
+                                        <th>Stock Mínimo</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="prod : ${stockBajo}">
+                                        <td th:text="${prod.nombre}">Producto</td>
+                                        <td class="text-danger fw-bold" th:text="${prod.cantidad}">0</td>
+                                        <td th:text="${prod.cantidadMinima}">5</td>
+                                        <td>
+                                            <a th:href="@{/tendero/productos/{id}/editar(id=${prod.id})}" 
+                                               class="btn btn-sm btn-warning">
+                                                <i class="bi bi-plus-circle"></i> Reabastecer
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="bi bi-list"></i> Todos los Productos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Producto</th>
+                                        <th>Categoría</th>
+                                        <th>Stock</th>
+                                        <th>Stock Mín.</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="prod : ${productos}" th:classappend="${prod.tieneStockBajo()} ? 'table-warning' : ''">
+                                        <td><code th:text="${prod.codigoBarras ?: 'N/A'}">0000</code></td>
+                                        <td th:text="${prod.nombre}">Producto</td>
+                                        <td th:text="${prod.categoria}">Categoría</td>
+                                        <td th:classappend="${prod.tieneStockBajo()} ? 'text-danger fw-bold' : ''" th:text="${prod.cantidad}">0</td>
+                                        <td th:text="${prod.cantidadMinima}">5</td>
+                                        <td>
+                                            <span th:if="${prod.cantidad <= 0}" class="badge bg-danger">Agotado</span>
+                                            <span th:if="${prod.cantidad > 0 && prod.tieneStockBajo()}" class="badge bg-warning">Bajo</span>
+                                            <span th:if="${prod.cantidad > prod.cantidadMinima}" class="badge bg-success">OK</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+</body>
+</html>

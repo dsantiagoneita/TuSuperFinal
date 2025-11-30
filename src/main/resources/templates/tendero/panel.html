@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('TuSuper - Panel Tendero')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 p-0">
+                <div th:replace="~{fragments/layout :: sidebar-tendero}"></div>
+            </div>
+            <div class="col-md-10 py-4">
+                <div th:replace="~{fragments/layout :: alerts}"></div>
+                
+                <h2 class="mb-4"><i class="bi bi-speedometer2"></i> Panel del Tendero</h2>
+                
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-warning text-dark">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6>Pedidos Pendientes</h6>
+                                        <h2 th:text="${cantidadPendientes}">0</h2>
+                                    </div>
+                                    <i class="bi bi-clock display-4 opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6>En Preparación</h6>
+                                        <h2 th:text="${cantidadEnPreparacion}">0</h2>
+                                    </div>
+                                    <i class="bi bi-box-seam display-4 opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6>Total Productos</h6>
+                                        <h2 th:text="${totalProductos}">0</h2>
+                                    </div>
+                                    <i class="bi bi-grid display-4 opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-danger text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6>Stock Bajo</h6>
+                                        <h2 th:text="${#lists.size(productosStockBajo)}">0</h2>
+                                    </div>
+                                    <i class="bi bi-exclamation-triangle display-4 opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="bi bi-clock-history"></i> Pedidos por Atender</h5>
+                                <a th:href="@{/tendero/pedidos}" class="btn btn-sm btn-outline-primary">Ver todos</a>
+                            </div>
+                            <div class="card-body">
+                                <div th:if="${#lists.isEmpty(pedidosPendientes) && #lists.isEmpty(pedidosEnPreparacion)}" 
+                                     class="text-center text-muted py-4">
+                                    <i class="bi bi-check-circle display-4"></i>
+                                    <p class="mt-2">¡No hay pedidos pendientes!</p>
+                                </div>
+                                <div class="table-responsive" th:unless="${#lists.isEmpty(pedidosPendientes) && #lists.isEmpty(pedidosEnPreparacion)}">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Pedido</th>
+                                                <th>Cliente</th>
+                                                <th>Items</th>
+                                                <th>Total</th>
+                                                <th>Estado</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="pedido : ${pedidosPendientes}">
+                                                <td th:text="${pedido.numeroPedido}">PED-001</td>
+                                                <td th:text="${pedido.usuario.nombre}">Cliente</td>
+                                                <td th:text="${pedido.cantidadItems}">0</td>
+                                                <td class="precio" th:text="'$' + ${#numbers.formatDecimal(pedido.total, 0, 'COMMA', 0, 'POINT')}">$0</td>
+                                                <td><span class="badge estado-CONFIRMADO">CONFIRMADO</span></td>
+                                                <td>
+                                                    <a th:href="@{/tendero/pedidos/{id}(id=${pedido.id})}" 
+                                                       class="btn btn-sm btn-primary">
+                                                        <i class="bi bi-eye"></i> Gestionar
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr th:each="pedido : ${pedidosEnPreparacion}">
+                                                <td th:text="${pedido.numeroPedido}">PED-001</td>
+                                                <td th:text="${pedido.usuario.nombre}">Cliente</td>
+                                                <td th:text="${pedido.cantidadItems}">0</td>
+                                                <td class="precio" th:text="'$' + ${#numbers.formatDecimal(pedido.total, 0, 'COMMA', 0, 'POINT')}">$0</td>
+                                                <td><span class="badge estado-EN_PREPARACION">EN PREPARACIÓN</span></td>
+                                                <td>
+                                                    <a th:href="@{/tendero/pedidos/{id}(id=${pedido.id})}" 
+                                                       class="btn btn-sm btn-primary">
+                                                        <i class="bi bi-eye"></i> Gestionar
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header bg-danger text-white">
+                                <h5 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Stock Bajo</h5>
+                            </div>
+                            <div class="card-body">
+                                <div th:if="${#lists.isEmpty(productosStockBajo)}" class="text-center text-muted py-3">
+                                    <i class="bi bi-check-circle"></i> Todo el inventario OK
+                                </div>
+                                <ul class="list-group list-group-flush" th:unless="${#lists.isEmpty(productosStockBajo)}">
+                                    <li th:each="prod : ${productosStockBajo}" class="list-group-item d-flex justify-content-between">
+                                        <span th:text="${prod.nombre}">Producto</span>
+                                        <span class="badge bg-danger" th:text="${prod.cantidad} + ' uds'">0 uds</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-footer bg-white" th:unless="${#lists.isEmpty(productosStockBajo)}">
+                                <a th:href="@{/tendero/inventario}" class="btn btn-sm btn-outline-danger w-100">
+                                    <i class="bi bi-clipboard-data"></i> Ver Inventario
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+</body>
+</html>

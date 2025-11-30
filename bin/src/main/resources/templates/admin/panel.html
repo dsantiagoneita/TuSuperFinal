@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('TuSuper - Admin Dashboard')}"></head>
+<body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 p-0">
+                <div th:replace="~{fragments/layout :: sidebar-admin}"></div>
+            </div>
+            <div class="col-md-10 py-4">
+                <div th:replace="~{fragments/layout :: alerts}"></div>
+                
+                <h2 class="mb-4"><i class="bi bi-speedometer2"></i> Dashboard Administrativo</h2>
+                
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6>Usuarios</h6>
+                                        <h2 th:text="${totalUsuarios}">0</h2>
+                                    </div>
+                                    <i class="bi bi-people display-4 opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6>Productos</h6>
+                                        <h2 th:text="${totalProductos}">0</h2>
+                                    </div>
+                                    <i class="bi bi-box-seam display-4 opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6>Pedidos</h6>
+                                        <h2 th:text="${totalPedidos}">0</h2>
+                                    </div>
+                                    <i class="bi bi-bag display-4 opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-warning text-dark">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6>Ventas Totales</h6>
+                                        <h4 th:text="'$' + ${#numbers.formatDecimal(totalVentas, 0, 'COMMA', 0, 'POINT')}">$0</h4>
+                                    </div>
+                                    <i class="bi bi-cash-stack display-4 opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="bi bi-people"></i> Usuarios Recientes</h5>
+                                <a th:href="@{/admin/usuarios}" class="btn btn-sm btn-outline-primary">Ver todos</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Email</th>
+                                                <th>Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="user : ${usuariosRecientes}">
+                                                <td th:text="${user.nombre}">Usuario</td>
+                                                <td th:text="${user.email}">email@test.com</td>
+                                                <td>
+                                                    <span th:if="${user.activo}" class="badge bg-success">Activo</span>
+                                                    <span th:unless="${user.activo}" class="badge bg-secondary">Inactivo</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="bi bi-bag"></i> Pedidos Recientes</h5>
+                                <a th:href="@{/admin/pedidos}" class="btn btn-sm btn-outline-primary">Ver todos</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Pedido</th>
+                                                <th>Total</th>
+                                                <th>Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="pedido : ${pedidosRecientes}">
+                                                <td th:text="${pedido.numeroPedido}">PED-001</td>
+                                                <td class="precio" th:text="'$' + ${#numbers.formatDecimal(pedido.total, 0, 'COMMA', 0, 'POINT')}">$0</td>
+                                                <td>
+                                                    <span class="badge" th:classappend="'estado-' + ${pedido.estado}" 
+                                                          th:text="${pedido.estado}">ESTADO</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+</body>
+</html>
