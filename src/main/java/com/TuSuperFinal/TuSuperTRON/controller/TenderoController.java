@@ -195,4 +195,16 @@ public class TenderoController {
         model.addAttribute("productosStockBajo", productoService.listarConStockBajo().size());
         return "tendero/reportes";
     }
+
+    /**
+     * Muestra la vista de escáner de código de barras USB.
+     * Esta vista permite escanear productos con un lector de código de barras USB
+     * o buscar manualmente por código de barras.
+     * 
+     * @return Vista del escáner de código de barras
+     */
+    @GetMapping("/escaner")
+    public String escanerCodigoBarras() {
+        return "tendero/escaner-codigo-barras";
+    }
 }

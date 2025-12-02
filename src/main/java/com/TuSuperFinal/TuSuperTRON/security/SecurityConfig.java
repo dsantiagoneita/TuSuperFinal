@@ -64,6 +64,7 @@ public class SecurityConfig {
                 .requestMatchers("/tendero/**").hasRole("TENDERO")
                 .requestMatchers("/usuario/**").hasRole("USUARIO")
                 .requestMatchers("/api/productos/**").hasAnyRole("USUARIO", "TENDERO", "ADMIN")
+                .requestMatchers("/api/codigo-barras/**").hasAnyRole("TENDERO", "ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

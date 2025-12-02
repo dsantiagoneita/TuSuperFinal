@@ -39,4 +39,15 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     List<Producto> buscarProductos(@Param("termino") String termino);
     
     boolean existsByCodigoBarras(String codigoBarras);
+    
+    /**
+     * Búsqueda flexible de código de barras.
+     * Encuentra productos cuyo código de barras contenga el término buscado
+     * o que el término buscado contenga el código de barras.
+     * Útil para manejar variaciones en la lectura del código (con/sin dígito verificador).
+     */
+    @Query("SELECT p FROM Producto p WHERE p.activo = true AND " +
+           "(p.codigoBarras LIKE CONCAT('%', :codigo, '%') OR " +
+           ":codigo LIKE CONCAT('%', p.codigoBarras, '%'))")
+    List<Producto> buscarPorCodigoBarrasFlexible(@Param("codigo") String codigo);
 }

@@ -118,7 +118,36 @@ public class ProductoService {
             return Optional.empty();
         }
         String codigoLimpio = codigoBarras.trim().replaceAll("[^0-9]", "");
-        return buscarPorCodigoBarras(codigoLimpio);
+        
+        // 1. Primero intentar búsqueda exacta
+        Optional<Producto> resultado = buscarPorCodigoBarras(codigoLimpio);
+        if (resultado.isPresent()) {
+            return resultado;
+        }
+        
+        // 2. Intentar búsqueda sin el último dígito (dígito de verificación)
+        if (codigoLimpio.length() > 8) {
+            String codigoSinVerificador = codigoLimpio.substring(0, codigoLimpio.length() - 1);
+            resultado = buscarPorCodigoBarras(codigoSinVerificador);
+            if (resultado.isPresent()) {
+                return resultado;
+            }
+        }
+        
+        // 3. Búsqueda flexible: el código escaneado contiene el código de BD o viceversa
+        List<Producto> resultadosFlexibles = productoRepository.buscarPorCodigoBarrasFlexible(codigoLimpio);
+        if (!resultadosFlexibles.isEmpty()) {
+            // Retornar el que tenga el código más similar (mayor coincidencia)
+            return resultadosFlexibles.stream()
+                .filter(p -> p.getCodigoBarras() != null)
+                .min((p1, p2) -> {
+                    int diff1 = Math.abs(p1.getCodigoBarras().length() - codigoLimpio.length());
+                    int diff2 = Math.abs(p2.getCodigoBarras().length() - codigoLimpio.length());
+                    return Integer.compare(diff1, diff2);
+                });
+        }
+        
+        return Optional.empty();
     }
 
     // Método preparatorio para carga masiva de inventario
