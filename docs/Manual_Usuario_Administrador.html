@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Manual de Usuario - Administrador TuSuper</title>
+    <style>
+        body { font-family: 'Calibri', Arial, sans-serif; margin: 40px; line-height: 1.6; color: #333; }
+        h1 { color: #6f42c1; border-bottom: 3px solid #6f42c1; padding-bottom: 10px; text-align: center; }
+        h2 { color: #6f42c1; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-top: 30px; }
+        h3 { color: #555; margin-top: 20px; }
+        .cover { text-align: center; margin-bottom: 60px; page-break-after: always; }
+        .cover h1 { font-size: 36px; margin-top: 100px; }
+        .cover p { font-size: 18px; color: #666; }
+        .toc { background: #f8f5ff; padding: 20px; border-radius: 8px; margin-bottom: 40px; border: 1px solid #6f42c1; }
+        .toc h2 { margin-top: 0; }
+        .toc ul { list-style-type: none; padding-left: 0; }
+        .toc li { padding: 5px 0; }
+        .toc a { color: #6f42c1; text-decoration: none; }
+        .step { background: #f3e8ff; padding: 15px; border-left: 4px solid #6f42c1; margin: 15px 0; border-radius: 4px; }
+        .warning { background: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 15px 0; border-radius: 4px; }
+        .info { background: #e3f2fd; padding: 15px; border-left: 4px solid #2196f3; margin: 15px 0; border-radius: 4px; }
+        .danger { background: #ffebee; padding: 15px; border-left: 4px solid #f44336; margin: 15px 0; border-radius: 4px; }
+        .success { background: #e8f5e9; padding: 15px; border-left: 4px solid #4caf50; margin: 15px 0; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: #6f42c1; color: white; }
+        tr:nth-child(even) { background: #f8f5ff; }
+        .footer { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; }
+        ul, ol { margin-left: 20px; }
+        li { margin-bottom: 8px; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+    </style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="cover">
+    <h1>MANUAL DE USUARIO</h1>
+    <h2 style="color: #6f42c1; font-size: 28px; border: none;">ROL: ADMINISTRADOR</h2>
+    <p style="font-size: 24px; margin-top: 40px;"><strong>TuSuper</strong></p>
+    <p>Tu tienda local en linea</p>
+    <br><br><br>
+    <p>Version 1.0</p>
+    <p>Diciembre 2024</p>
+</div>
+
+<!-- TABLA DE CONTENIDOS -->
+<div class="toc">
+    <h2>Tabla de Contenidos</h2>
+    <ul>
+        <li><a href="#intro">1. Introduccion</a></li>
+        <li><a href="#acceso">2. Acceso al Sistema</a></li>
+        <li><a href="#dashboard">3. Dashboard Administrativo</a></li>
+        <li><a href="#usuarios">4. Gestion de Usuarios</a></li>
+        <li><a href="#tenderos">5. Creacion de Tenderos</a></li>
+        <li><a href="#productos">6. Supervision de Productos</a></li>
+        <li><a href="#pedidos">7. Supervision de Pedidos</a></li>
+        <li><a href="#reportes">8. Reportes del Sistema</a></li>
+        <li><a href="#seguridad">9. Seguridad y Buenas Practicas</a></li>
+        <li><a href="#troubleshoot">10. Solucion de Problemas</a></li>
+    </ul>
+</div>
+
+<!-- 1. INTRODUCCION -->
+<h2 id="intro">1. Introduccion</h2>
+<p>Bienvenido al manual del <strong>Administrador</strong> de TuSuper. Como administrador, tienes el nivel mas alto de acceso al sistema y eres responsable de la gestion global de la plataforma.</p>
+
+<h3>1.1 Responsabilidades del Administrador</h3>
+<ul>
+    <li>Supervision general del sistema</li>
+    <li>Gestion de todos los usuarios (clientes, tenderos, administradores)</li>
+    <li>Creacion de cuentas de tenderos</li>
+    <li>Monitoreo de productos y pedidos</li>
+    <li>Generacion y analisis de reportes</li>
+    <li>Activacion y desactivacion de cuentas</li>
+    <li>Mantenimiento de la integridad del sistema</li>
+</ul>
+
+<div class="danger">
+    <strong>Advertencia:</strong> El rol de administrador tiene acceso total al sistema. Usa estas funciones con responsabilidad y cuidado.
+</div>
+
+<h3>1.2 Diferencias con Otros Roles</h3>
+<table>
+    <tr>
+        <th>Funcion</th>
+        <th>Cliente</th>
+        <th>Tendero</th>
+        <th>Admin</th>
+    </tr>
+    <tr>
+        <td>Ver productos</td>
+        <td>Si</td>
+        <td>Si</td>
+        <td>Si</td>
+    </tr>
+    <tr>
+        <td>Gestionar productos</td>
+        <td>No</td>
+        <td>Si</td>
+        <td>Ver</td>
+    </tr>
+    <tr>
+        <td>Realizar pedidos</td>
+        <td>Si</td>
+        <td>No</td>
+        <td>No</td>
+    </tr>
+    <tr>
+        <td>Gestionar pedidos</td>
+        <td>Ver propios</td>
+        <td>Si</td>
+        <td>Ver todos</td>
+    </tr>
+    <tr>
+        <td>Gestionar usuarios</td>
+        <td>No</td>
+        <td>No</td>
+        <td>Si</td>
+    </tr>
+    <tr>
+        <td>Crear tenderos</td>
+        <td>No</td>
+        <td>No</td>
+        <td>Si</td>
+    </tr>
+    <tr>
+        <td>Ver reportes globales</td>
+        <td>No</td>
+        <td>Parcial</td>
+        <td>Si</td>
+    </tr>
+</table>
+
+<!-- 2. ACCESO -->
+<h2 id="acceso">2. Acceso al Sistema</h2>
+
+<h3>2.1 Credenciales de Administrador</h3>
+<p>Las credenciales de administrador son configuradas durante la instalacion del sistema o proporcionadas por el administrador tecnico.</p>
+
+<div class="info">
+    <strong>Credenciales de prueba:</strong><br>
+    Email: <code>admin@tusuper.com</code><br>
+    Contrasena: <code>admin123</code>
+</div>
+
+<h3>2.2 Inicio de Sesion</h3>
+<div class="step">
+    <ol>
+        <li>Accede a la pagina de login de TuSuper</li>
+        <li>Ingresa tu <strong>email de administrador</strong></li>
+        <li>Ingresa tu <strong>contrasena</strong></li>
+        <li>Haz clic en <strong>"Iniciar Sesion"</strong></li>
+        <li>Seras redirigido al <strong>Panel de Administracion</strong></li>
+    </ol>
+</div>
+
+<h3>2.3 Estructura de la Interfaz</h3>
+<p>La interfaz administrativa consta de:</p>
+<ul>
+    <li><strong>Barra de navegacion superior:</strong> Logo, titulo y menu de usuario</li>
+    <li><strong>Menu lateral (Sidebar):</strong> Navegacion entre modulos</li>
+    <li><strong>Area principal:</strong> Contenido del modulo seleccionado</li>
+</ul>
+
+<h3>2.4 Menu Lateral del Administrador</h3>
+<table>
+    <tr>
+        <th>Opcion</th>
+        <th>Icono</th>
+        <th>Funcion</th>
+    </tr>
+    <tr>
+        <td>Dashboard</td>
+        <td>Velocimetro</td>
+        <td>Panel principal con estadisticas</td>
+    </tr>
+    <tr>
+        <td>Usuarios</td>
+        <td>Personas</td>
+        <td>Gestion de todos los usuarios</td>
+    </tr>
+    <tr>
+        <td>Productos</td>
+        <td>Caja</td>
+        <td>Ver catalogo completo</td>
+    </tr>
+    <tr>
+        <td>Pedidos</td>
+        <td>Bolsa</td>
+        <td>Ver todos los pedidos</td>
+    </tr>
+    <tr>
+        <td>Reportes</td>
+        <td>Grafico</td>
+        <td>Estadisticas y metricas</td>
+    </tr>
+</table>
+
+<!-- 3. DASHBOARD -->
+<h2 id="dashboard">3. Dashboard Administrativo</h2>
+<p>El dashboard es tu centro de comando, mostrando una vision general del estado del negocio.</p>
+
+<h3>3.1 Tarjetas de Metricas Principales</h3>
+<table>
+    <tr>
+        <th>Metrica</th>
+        <th>Descripcion</th>
+        <th>Color</th>
+    </tr>
+    <tr>
+        <td><strong>Usuarios</strong></td>
+        <td>Total de usuarios registrados en el sistema</td>
+        <td>Azul</td>
+    </tr>
+    <tr>
+        <td><strong>Productos</strong></td>
+        <td>Total de productos en el catalogo</td>
+        <td>Verde</td>
+    </tr>
+    <tr>
+        <td><strong>Pedidos</strong></td>
+        <td>Total de pedidos realizados</td>
+        <td>Cyan</td>
+    </tr>
+    <tr>
+        <td><strong>Ventas Totales</strong></td>
+        <td>Suma de pedidos entregados en COP</td>
+        <td>Amarillo</td>
+    </tr>
+</table>
+
+<h3>3.2 Usuarios Recientes</h3>
+<p>Panel que muestra los ultimos usuarios registrados con:</p>
+<ul>
+    <li>Nombre del usuario</li>
+    <li>Email</li>
+    <li>Estado (Activo/Inactivo)</li>
+</ul>
+<p>Incluye enlace rapido para <strong>"Ver todos"</strong> los usuarios.</p>
+
+<h3>3.3 Pedidos Recientes</h3>
+<p>Panel que muestra los ultimos pedidos con:</p>
+<ul>
+    <li>Numero de pedido</li>
+    <li>Total en COP</li>
+    <li>Estado actual</li>
+</ul>
+<p>Incluye enlace rapido para <strong>"Ver todos"</strong> los pedidos.</p>
+
+<!-- 4. GESTION DE USUARIOS -->
+<h2 id="usuarios">4. Gestion de Usuarios</h2>
+<p>Modulo central para administrar todos los usuarios del sistema.</p>
+
+<h3>4.1 Acceso</h3>
+<p>Haz clic en <strong>"Usuarios"</strong> en el menu lateral.</p>
+
+<h3>4.2 Filtrar Usuarios por Rol</h3>
+<p>Usa el selector de filtro para ver usuarios especificos:</p>
+<ul>
+    <li><strong>Todos los roles:</strong> Muestra todos los usuarios</li>
+    <li><strong>Clientes:</strong> Solo usuarios con rol USUARIO</li>
+    <li><strong>Tenderos:</strong> Solo usuarios con rol TENDERO</li>
+    <li><strong>Administradores:</strong> Solo usuarios con rol ADMIN</li>
+</ul>
+
+<h3>4.3 Informacion de Usuarios</h3>
+<p>La tabla muestra:</p>
+<table>
+    <tr>
+        <th>Columna</th>
+        <th>Descripcion</th>
+    </tr>
+    <tr>
+        <td>ID</td>
+        <td>Identificador unico del usuario</td>
+    </tr>
+    <tr>
+        <td>Nombre</td>
+        <td>Nombre completo</td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>Correo electronico (usuario de acceso)</td>
+    </tr>
+    <tr>
+        <td>Telefono</td>
+        <td>Numero de contacto</td>
+    </tr>
+    <tr>
+        <td>Roles</td>
+        <td>Badges indicando los roles asignados</td>
+    </tr>
+    <tr>
+        <td>Estado</td>
+        <td>Activo (verde) o Inactivo (gris)</td>
+    </tr>
+    <tr>
+        <td>Acciones</td>
+        <td>Botones de gestion</td>
+    </tr>
+</table>
+
+<h3>4.4 Acciones sobre Usuarios</h3>
+
+<h4>Ver Detalle del Usuario</h4>
+<div class="step">
+    <ol>
+        <li>Haz clic en el icono de <strong>ojo</strong></li>
+        <li>Se mostrara informacion completa del usuario</li>
+        <li>Podras ver historial y detalles adicionales</li>
+    </ol>
+</div>
+
+<h4>Desactivar Usuario</h4>
+<div class="step">
+    <ol>
+        <li>En usuarios activos, haz clic en el boton <strong>X roja</strong></li>
+        <li>El usuario sera desactivado inmediatamente</li>
+        <li>El usuario no podra iniciar sesion hasta ser reactivado</li>
+    </ol>
+</div>
+
+<div class="warning">
+    <strong>Precaucion:</strong> Desactivar un usuario no elimina sus datos ni historial. El usuario puede ser reactivado posteriormente.
+</div>
+
+<h4>Activar Usuario</h4>
+<div class="step">
+    <ol>
+        <li>En usuarios inactivos, haz clic en el boton <strong>check verde</strong></li>
+        <li>El usuario sera reactivado inmediatamente</li>
+        <li>El usuario podra iniciar sesion nuevamente</li>
+    </ol>
+</div>
+
+<!-- 5. CREACION DE TENDEROS -->
+<h2 id="tenderos">5. Creacion de Tenderos</h2>
+<p>Solo los administradores pueden crear cuentas de tendero.</p>
+
+<h3>5.1 Acceso al Formulario</h3>
+<div class="step">
+    <ol>
+        <li>Ve a la seccion de <strong>Usuarios</strong></li>
+        <li>Haz clic en el boton <strong>"Nuevo Tendero"</strong> (esquina superior derecha)</li>
+    </ol>
+</div>
+
+<h3>5.2 Completar el Formulario</h3>
+<p>Campos requeridos (marcados con *):</p>
+<table>
+    <tr>
+        <th>Campo</th>
+        <th>Descripcion</th>
+        <th>Requerido</th>
+    </tr>
+    <tr>
+        <td>Nombre Completo</td>
+        <td>Nombre y apellido del tendero</td>
+        <td>Si</td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>Correo electronico (sera su usuario)</td>
+        <td>Si</td>
+    </tr>
+    <tr>
+        <td>Telefono</td>
+        <td>Numero de contacto</td>
+        <td>No</td>
+    </tr>
+    <tr>
+        <td>Direccion</td>
+        <td>Direccion del tendero</td>
+        <td>No</td>
+    </tr>
+    <tr>
+        <td>Contrasena</td>
+        <td>Contrasena inicial (minimo 6 caracteres)</td>
+        <td>Si</td>
+    </tr>
+    <tr>
+        <td>Confirmar Contrasena</td>
+        <td>Repetir la contrasena</td>
+        <td>Si</td>
+    </tr>
+</table>
+
+<h3>5.3 Crear el Tendero</h3>
+<div class="step">
+    <ol>
+        <li>Completa todos los campos requeridos</li>
+        <li>Verifica que las contrasenas coincidan</li>
+        <li>Haz clic en <strong>"Crear Tendero"</strong></li>
+        <li>El tendero recibira un mensaje de confirmacion</li>
+        <li>Proporciona las credenciales al nuevo tendero de forma segura</li>
+    </ol>
+</div>
+
+<div class="success">
+    <strong>Exito:</strong> Una vez creado, el tendero podra acceder inmediatamente al sistema con las credenciales proporcionadas.
+</div>
+
+<div class="danger">
+    <strong>Seguridad:</strong> Comunica las credenciales de forma segura y recomienda al tendero cambiar su contrasena inicial.
+</div>
+
+<!-- 6. SUPERVISION DE PRODUCTOS -->
+<h2 id="productos">6. Supervision de Productos</h2>
+<p>Vista de solo lectura del catalogo completo de productos.</p>
+
+<h3>6.1 Informacion Visible</h3>
+<table>
+    <tr>
+        <th>Columna</th>
+        <th>Descripcion</th>
+    </tr>
+    <tr>
+        <td>ID</td>
+        <td>Identificador unico del producto</td>
+    </tr>
+    <tr>
+        <td>Codigo</td>
+        <td>Codigo de barras</td>
+    </tr>
+    <tr>
+        <td>Producto</td>
+        <td>Nombre y marca</td>
+    </tr>
+    <tr>
+        <td>Categoria</td>
+        <td>Clasificacion del producto</td>
+    </tr>
+    <tr>
+        <td>Precio</td>
+        <td>Precio de venta en COP</td>
+    </tr>
+    <tr>
+        <td>Stock</td>
+        <td>Cantidad disponible (rojo si bajo)</td>
+    </tr>
+    <tr>
+        <td>Estado</td>
+        <td>Activo o Inactivo</td>
+    </tr>
+</table>
+
+<div class="info">
+    <strong>Nota:</strong> La gestion de productos (crear, editar, eliminar) es responsabilidad del tendero. El administrador solo supervisa.
+</div>
+
+<h3>6.2 Identificar Problemas</h3>
+<p>Como administrador, debes estar atento a:</p>
+<ul>
+    <li><strong>Productos con stock bajo:</strong> Coordinar con tenderos para reabastecimiento</li>
+    <li><strong>Productos inactivos:</strong> Verificar si deben reactivarse o eliminarse</li>
+    <li><strong>Precios inconsistentes:</strong> Revisar con tenderos</li>
+</ul>
+
+<!-- 7. SUPERVISION DE PEDIDOS -->
+<h2 id="pedidos">7. Supervision de Pedidos</h2>
+<p>Vista completa de todos los pedidos del sistema.</p>
+
+<h3>7.1 Filtrar Pedidos</h3>
+<p>Usa el filtro de estado para ver pedidos especificos:</p>
+<ul>
+    <li><strong>Todos los estados</strong></li>
+    <li><strong>PENDIENTE:</strong> Esperando confirmacion</li>
+    <li><strong>CONFIRMADO:</strong> Confirmados por el tendero</li>
+    <li><strong>EN_PREPARACION:</strong> Siendo preparados</li>
+    <li><strong>ENVIADO:</strong> En camino al cliente</li>
+    <li><strong>ENTREGADO:</strong> Completados exitosamente</li>
+    <li><strong>CANCELADO:</strong> Pedidos cancelados</li>
+</ul>
+
+<h3>7.2 Informacion del Pedido</h3>
+<table>
+    <tr>
+        <th>Columna</th>
+        <th>Descripcion</th>
+    </tr>
+    <tr>
+        <td>Pedido</td>
+        <td>Numero unico (ej: PED-001)</td>
+    </tr>
+    <tr>
+        <td>Fecha</td>
+        <td>Fecha y hora del pedido</td>
+    </tr>
+    <tr>
+        <td>Cliente</td>
+        <td>Nombre del comprador</td>
+    </tr>
+    <tr>
+        <td>Items</td>
+        <td>Cantidad de productos</td>
+    </tr>
+    <tr>
+        <td>Total</td>
+        <td>Valor total en COP</td>
+    </tr>
+    <tr>
+        <td>Estado</td>
+        <td>Estado actual del pedido</td>
+    </tr>
+</table>
+
+<h3>7.3 Ver Detalle</h3>
+<p>Haz clic en el boton de <strong>ojo</strong> para ver:</p>
+<ul>
+    <li>Informacion completa del cliente</li>
+    <li>Lista detallada de productos</li>
+    <li>Direccion de entrega</li>
+    <li>Observaciones del cliente</li>
+    <li>Historial de cambios de estado</li>
+</ul>
+
+<div class="info">
+    <strong>Nota:</strong> La gestion de pedidos (cambiar estados) es responsabilidad del tendero. El administrador supervisa el proceso.
+</div>
+
+<!-- 8. REPORTES -->
+<h2 id="reportes">8. Reportes del Sistema</h2>
+<p>Seccion de analisis y metricas globales.</p>
+
+<h3>8.1 Metricas de Usuarios</h3>
+<ul>
+    <li><strong>Total Usuarios:</strong> Cantidad total registrada</li>
+    <li><strong>Clientes:</strong> Usuarios con rol USUARIO</li>
+    <li><strong>Tenderos:</strong> Usuarios con rol TENDERO</li>
+</ul>
+
+<h3>8.2 Metricas de Productos</h3>
+<ul>
+    <li><strong>Total Productos:</strong> Productos en catalogo</li>
+    <li><strong>Productos Activos:</strong> Disponibles para venta</li>
+</ul>
+
+<h3>8.3 Metricas de Pedidos</h3>
+<ul>
+    <li><strong>Total Pedidos:</strong> Todos los pedidos realizados</li>
+    <li><strong>Pedidos Entregados:</strong> Completados exitosamente</li>
+</ul>
+
+<h3>8.4 Metricas Financieras</h3>
+<div class="success">
+    <strong>Total en Ventas:</strong> Suma de todos los pedidos con estado ENTREGADO, mostrado en pesos colombianos (COP).
+</div>
+
+<h3>8.5 Analisis Recomendado</h3>
+<p>Usa estos reportes para:</p>
+<ul>
+    <li>Evaluar el crecimiento de la plataforma</li>
+    <li>Identificar tendencias en ventas</li>
+    <li>Medir la tasa de conversion de pedidos</li>
+    <li>Planificar estrategias de negocio</li>
+</ul>
+
+<!-- 9. SEGURIDAD -->
+<h2 id="seguridad">9. Seguridad y Buenas Practicas</h2>
+
+<h3>9.1 Gestion de Contrasenas</h3>
+<ul>
+    <li>Usa contrasenas fuertes (minimo 8 caracteres, combinando letras, numeros y simbolos)</li>
+    <li>No compartas tu contrasena de administrador</li>
+    <li>Cambia la contrasena periodicamente</li>
+    <li>Al crear tenderos, usa contrasenas temporales que deban cambiar</li>
+</ul>
+
+<h3>9.2 Gestion de Sesiones</h3>
+<ul>
+    <li>Siempre cierra sesion al terminar de trabajar</li>
+    <li>No dejes sesiones abiertas en computadores publicos</li>
+    <li>El sistema cierra sesiones automaticamente despues de inactividad</li>
+</ul>
+
+<h3>9.3 Gestion de Usuarios</h3>
+<div class="warning">
+    <strong>Mejores practicas:</strong>
+    <ul>
+        <li>Desactiva usuarios sospechosos inmediatamente</li>
+        <li>Revisa periodicamente la lista de usuarios activos</li>
+        <li>Verifica que solo las personas autorizadas tengan rol de tendero o admin</li>
+        <li>Mantén un registro de cambios importantes</li>
+    </ul>
+</div>
+
+<h3>9.4 Monitoreo Regular</h3>
+<p>Se recomienda revisar diariamente:</p>
+<ul>
+    <li>Dashboard para metricas generales</li>
+    <li>Pedidos pendientes o atrasados</li>
+    <li>Nuevos usuarios registrados</li>
+    <li>Productos con stock critico</li>
+</ul>
+
+<!-- 10. SOLUCION DE PROBLEMAS -->
+<h2 id="troubleshoot">10. Solucion de Problemas</h2>
+
+<h3>10.1 Problemas de Acceso</h3>
+<table>
+    <tr>
+        <th>Problema</th>
+        <th>Solucion</th>
+    </tr>
+    <tr>
+        <td>No puedo iniciar sesion</td>
+        <td>Verifica email y contrasena. Contacta al administrador tecnico si persiste.</td>
+    </tr>
+    <tr>
+        <td>Sesion expira muy rapido</td>
+        <td>Es normal por seguridad. Inicia sesion nuevamente.</td>
+    </tr>
+    <tr>
+        <td>No veo el menu de administrador</td>
+        <td>Verifica que tu cuenta tenga rol ADMIN asignado.</td>
+    </tr>
+</table>
+
+<h3>10.2 Problemas con Usuarios</h3>
+<table>
+    <tr>
+        <th>Problema</th>
+        <th>Solucion</th>
+    </tr>
+    <tr>
+        <td>Usuario no puede acceder</td>
+        <td>Verifica que este activo. Si esta inactivo, reactivalo.</td>
+    </tr>
+    <tr>
+        <td>Tendero olvido su contrasena</td>
+        <td>Contacta al administrador tecnico para resetearla.</td>
+    </tr>
+    <tr>
+        <td>Email duplicado al crear usuario</td>
+        <td>El email ya existe. Usa otro email o busca el usuario existente.</td>
+    </tr>
+</table>
+
+<h3>10.3 Problemas con Pedidos</h3>
+<table>
+    <tr>
+        <th>Problema</th>
+        <th>Solucion</th>
+    </tr>
+    <tr>
+        <td>Pedido atascado en un estado</td>
+        <td>Contacta al tendero para que actualice el estado.</td>
+    </tr>
+    <tr>
+        <td>Cliente quiere cancelar pedido</td>
+        <td>Coordina con el tendero para cambiar estado a CANCELADO.</td>
+    </tr>
+</table>
+
+<h3>10.4 Problemas Tecnicos</h3>
+<table>
+    <tr>
+        <th>Problema</th>
+        <th>Solucion</th>
+    </tr>
+    <tr>
+        <td>Pagina no carga</td>
+        <td>Refresca la pagina. Verifica conexion a internet.</td>
+    </tr>
+    <tr>
+        <td>Datos no se actualizan</td>
+        <td>Limpia cache del navegador y refresca.</td>
+    </tr>
+    <tr>
+        <td>Error inesperado</td>
+        <td>Toma captura de pantalla y contacta soporte tecnico.</td>
+    </tr>
+</table>
+
+<h3>10.5 Contacto de Soporte</h3>
+<div class="info">
+    <p>Para problemas tecnicos que no puedas resolver, contacta al equipo de desarrollo o soporte tecnico con:</p>
+    <ul>
+        <li>Descripcion detallada del problema</li>
+        <li>Capturas de pantalla si es posible</li>
+        <li>Pasos para reproducir el error</li>
+        <li>Fecha y hora aproximada del incidente</li>
+    </ul>
+</div>
+
+<!-- APENDICE -->
+<h2>Apendice: Resumen de Funciones</h2>
+<table>
+    <tr>
+        <th>Modulo</th>
+        <th>Funciones Principales</th>
+    </tr>
+    <tr>
+        <td><strong>Dashboard</strong></td>
+        <td>Ver metricas, usuarios recientes, pedidos recientes</td>
+    </tr>
+    <tr>
+        <td><strong>Usuarios</strong></td>
+        <td>Listar, filtrar, ver detalle, activar, desactivar, crear tenderos</td>
+    </tr>
+    <tr>
+        <td><strong>Productos</strong></td>
+        <td>Supervision del catalogo (solo lectura)</td>
+    </tr>
+    <tr>
+        <td><strong>Pedidos</strong></td>
+        <td>Supervision de todos los pedidos (solo lectura)</td>
+    </tr>
+    <tr>
+        <td><strong>Reportes</strong></td>
+        <td>Estadisticas de usuarios, productos, pedidos y ventas</td>
+    </tr>
+</table>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p><strong>TuSuper</strong> - Tu tienda local en linea</p>
+    <p>Manual de Usuario - Administrador | Version 1.0 | Diciembre 2024</p>
+    <br>
+    <p><em>Este documento es confidencial y de uso exclusivo para administradores del sistema.</em></p>
+</div>
+
+</body>
+</html>
