@@ -23,4 +23,15 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     
     @Query("SELECT u FROM Usuario u WHERE u.activo = true AND u.nombre LIKE %:nombre%")
     List<Usuario> buscarPorNombre(@Param("nombre") String nombre);
+
+    /**
+     * Busca un usuario por su código de barras de acceso.
+     * Utilizado para autenticación de administradores con lector USB.
+     */
+    Optional<Usuario> findByCodigoBarrasAcceso(String codigoBarrasAcceso);
+
+    /**
+     * Verifica si existe un usuario con el código de barras de acceso especificado.
+     */
+    boolean existsByCodigoBarrasAcceso(String codigoBarrasAcceso);
 }

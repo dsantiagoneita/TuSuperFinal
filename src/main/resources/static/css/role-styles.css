@@ -1,0 +1,14 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * TUSUPER — MEJORAS DE ESTILOS (Roles + Precios)
+ * ═══════════════════════════════════════════════════════════════════════════════
+ */
+
+/* Tipografía de Precios Mejorada */
+.ts-price,
+.precio {
+    font-family: var(--ts-font-body) !important;
+    font-weight: var(--ts-font-bold) !important;
+    color: var(--ts-accent-primary) !important;
+    letter-spacing: var(--ts-tracking-tight);
+}

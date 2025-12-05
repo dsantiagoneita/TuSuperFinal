@@ -58,9 +58,40 @@ public class DataInitializer implements CommandLineRunner {
                 passwordEncoder.encode("admin123"));
             admin.setTelefono("3001234567");
             admin.setDireccion("Oficina Central TuSuper");
+            // Código de barras de acceso para autenticación USB (13 dígitos - EAN-13)
+            admin.setCodigoBarrasAcceso("1234567890123");
             Rol rolAdmin = rolRepository.findByNombre("ROLE_ADMIN").orElseThrow();
             admin.agregarRol(rolAdmin);
             usuarioRepository.save(admin);
+        } else {
+            // Si el admin ya existe, asegurar que tenga código de barras de acceso
+            usuarioRepository.findByEmail("admin@tusuper.com").ifPresent(admin -> {
+                if (admin.getCodigoBarrasAcceso() == null || admin.getCodigoBarrasAcceso().isEmpty()) {
+                    admin.setCodigoBarrasAcceso("1234567890123");
+                    usuarioRepository.save(admin);
+                }
+            });
+        }
+
+        // Usuario Admin - Neita Administrador
+        if (!usuarioRepository.existsByEmail("neitaadministrador@tusuper.com")) {
+            Usuario neitaAdmin = new Usuario("neitaadministrador", "neitaadministrador@tusuper.com", 
+                passwordEncoder.encode("neita1234"));
+            neitaAdmin.setTelefono("3001234568");
+            neitaAdmin.setDireccion("Oficina TuSuper - Sede Principal");
+            // Código de barras de acceso para autenticación USB (cédula)
+            neitaAdmin.setCodigoBarrasAcceso("1052836985");
+            Rol rolAdmin = rolRepository.findByNombre("ROLE_ADMIN").orElseThrow();
+            neitaAdmin.agregarRol(rolAdmin);
+            usuarioRepository.save(neitaAdmin);
+        } else {
+            // Si ya existe, asegurar que tenga el código de barras de acceso
+            usuarioRepository.findByEmail("neitaadministrador@tusuper.com").ifPresent(neitaAdmin -> {
+                if (neitaAdmin.getCodigoBarrasAcceso() == null || !neitaAdmin.getCodigoBarrasAcceso().equals("1052836985")) {
+                    neitaAdmin.setCodigoBarrasAcceso("1052836985");
+                    usuarioRepository.save(neitaAdmin);
+                }
+            });
         }
 
         // Usuario Tendero (Neita)

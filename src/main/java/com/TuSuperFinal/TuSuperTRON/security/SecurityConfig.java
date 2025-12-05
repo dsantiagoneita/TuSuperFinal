@@ -87,7 +87,8 @@ public class SecurityConfig {
             .sessionManagement(session -> session
                 .maximumSessions(1)
                 .expiredUrl("/login?expired=true")
-            );
+            )
+            ;
         
         return http.build();
     }

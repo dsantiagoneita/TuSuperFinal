@@ -34,6 +34,9 @@ public class Usuario {
     @Column(nullable = false)
     private boolean activo = true;
 
+    @Column(name = "codigo_barras_acceso", unique = true, length = 20)
+    private String codigoBarrasAcceso;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "usuarios_roles",
@@ -140,5 +143,20 @@ public class Usuario {
 
     public void agregarRol(Rol rol) {
         this.roles.add(rol);
+    }
+
+    public String getCodigoBarrasAcceso() {
+        return codigoBarrasAcceso;
+    }
+
+    public void setCodigoBarrasAcceso(String codigoBarrasAcceso) {
+        this.codigoBarrasAcceso = codigoBarrasAcceso;
+    }
+
+    /**
+     * Verifica si el usuario tiene rol de administrador.
+     */
+    public boolean esAdmin() {
+        return roles.stream().anyMatch(r -> "ROLE_ADMIN".equals(r.getNombre()));
     }
 }
