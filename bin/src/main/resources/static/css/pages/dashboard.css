@@ -1,0 +1,280 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * TUSUPER — ESTILOS DE DASHBOARD
+ * Paneles de administración, tendero y usuario
+ * ═══════════════════════════════════════════════════════════════════════════════
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * LAYOUT PRINCIPAL DEL DASHBOARD
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ts-dashboard {
+    min-height: 100vh;
+    background: var(--ts-cream);
+}
+
+.ts-dashboard-content {
+    padding: var(--ts-space-8);
+    animation: ts-slide-up 0.4s ease forwards;
+}
+
+/* Título de página */
+.ts-page-title {
+    font-family: var(--ts-font-display);
+    font-size: var(--ts-text-4xl);
+    font-weight: var(--ts-font-black);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-tight);
+    margin-bottom: var(--ts-space-8);
+    padding-bottom: var(--ts-space-4);
+    border-bottom: var(--ts-border-brutal) solid var(--ts-black);
+    display: flex;
+    align-items: center;
+    gap: var(--ts-space-4);
+}
+
+.ts-page-title i {
+    color: var(--ts-accent-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * TARJETAS DE ESTADÍSTICAS
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ts-stat-card {
+    position: relative;
+    overflow: hidden;
+    transition: all var(--ts-transition-fast);
+}
+
+.ts-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--ts-black);
+}
+
+.ts-stat-card .card-body {
+    padding: var(--ts-space-6);
+}
+
+.ts-stat-card h6 {
+    font-family: var(--ts-font-body);
+    font-size: var(--ts-text-xs);
+    font-weight: var(--ts-font-black);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-widest);
+    margin-bottom: var(--ts-space-2);
+    opacity: 0.8;
+}
+
+.ts-stat-card h2,
+.ts-stat-card h4 {
+    font-family: var(--ts-font-display);
+    font-size: var(--ts-text-5xl);
+    font-weight: var(--ts-font-black);
+    line-height: 1;
+    margin: 0;
+}
+
+.ts-stat-card i.display-4 {
+    font-size: var(--ts-text-6xl);
+    opacity: 0.3;
+    transition: opacity var(--ts-transition-fast);
+}
+
+.ts-stat-card:hover i.display-4 {
+    opacity: 0.5;
+}
+
+/* Variantes de color para stat cards */
+.ts-stat-card.bg-primary {
+    background: var(--ts-accent-electric) !important;
+}
+
+.ts-stat-card.bg-primary::before {
+    background: var(--ts-black);
+}
+
+.ts-stat-card.bg-success {
+    background: var(--ts-accent-neon) !important;
+}
+
+.ts-stat-card.bg-info {
+    background: var(--ts-accent-secondary) !important;
+}
+
+.ts-stat-card.bg-warning {
+    background: var(--ts-accent-primary) !important;
+    color: var(--ts-white) !important;
+}
+
+.ts-stat-card.bg-warning h6,
+.ts-stat-card.bg-warning h2,
+.ts-stat-card.bg-warning h4 {
+    color: var(--ts-white);
+}
+
+.ts-stat-card.bg-danger {
+    background: var(--ts-error) !important;
+    color: var(--ts-white) !important;
+}
+
+.ts-stat-card.bg-danger h6,
+.ts-stat-card.bg-danger h2,
+.ts-stat-card.bg-danger h4 {
+    color: var(--ts-white);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * TARJETAS DE CONTENIDO
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ts-content-card {
+    margin-bottom: var(--ts-space-6);
+}
+
+.ts-content-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--ts-space-4) var(--ts-space-5);
+}
+
+.ts-content-card .card-header h5 {
+    font-family: var(--ts-font-display);
+    font-size: var(--ts-text-lg);
+    font-weight: var(--ts-font-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-wide);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--ts-space-2);
+}
+
+/* Header alternativo (fondo blanco) */
+.ts-content-card .card-header.bg-white {
+    background: var(--ts-white) !important;
+    border-bottom: var(--ts-border-thick) solid var(--ts-black) !important;
+}
+
+.ts-content-card .card-header.bg-white h5 {
+    color: var(--ts-black);
+}
+
+/* Header danger para alertas */
+.ts-content-card .card-header.bg-danger {
+    background: var(--ts-error) !important;
+    border-bottom: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * LISTA DE ITEMS (Stock bajo, etc.)
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ts-item-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.ts-item-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--ts-space-4);
+    border-bottom: var(--ts-border-thin) solid var(--ts-gray-200);
+    transition: background var(--ts-transition-fast);
+}
+
+.ts-item-list li:last-child {
+    border-bottom: none;
+}
+
+.ts-item-list li:hover {
+    background: var(--ts-gray-100);
+}
+
+.ts-item-list .badge {
+    font-size: var(--ts-text-xs);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * ESTADO VACÍO
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ts-empty-state {
+    text-align: center;
+    padding: var(--ts-space-10);
+}
+
+.ts-empty-state i {
+    font-size: var(--ts-text-6xl);
+    color: var(--ts-gray-300);
+    margin-bottom: var(--ts-space-4);
+}
+
+.ts-empty-state p {
+    font-family: var(--ts-font-body);
+    font-size: var(--ts-text-base);
+    color: var(--ts-gray-500);
+    margin: 0;
+}
+
+.ts-empty-state .bi-check-circle {
+    color: var(--ts-accent-neon);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * ACCIONES RÁPIDAS
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.ts-quick-actions {
+    display: flex;
+    gap: var(--ts-space-3);
+    flex-wrap: wrap;
+}
+
+.ts-quick-actions .btn {
+    flex: 1;
+    min-width: 120px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * RESPONSIVE
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767.98px) {
+    .ts-dashboard-content {
+        padding: var(--ts-space-4);
+    }
+    
+    .ts-page-title {
+        font-size: var(--ts-text-2xl);
+        margin-bottom: var(--ts-space-5);
+    }
+    
+    .ts-stat-card h2,
+    .ts-stat-card h4 {
+        font-size: var(--ts-text-4xl);
+    }
+    
+    .ts-stat-card i.display-4 {
+        font-size: var(--ts-text-4xl);
+    }
+    
+    .ts-content-card .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--ts-space-3);
+    }
+    
+    .ts-content-card .card-header .btn {
+        width: 100%;
+    }
+}

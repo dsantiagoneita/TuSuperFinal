@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Manual de Usuario - Cliente TuSuper</title>
+    <style>
+        body { font-family: 'Calibri', Arial, sans-serif; margin: 40px; line-height: 1.6; color: #333; }
+        h1 { color: #28a745; border-bottom: 3px solid #28a745; padding-bottom: 10px; text-align: center; }
+        h2 { color: #28a745; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-top: 30px; }
+        h3 { color: #555; margin-top: 20px; }
+        .cover { text-align: center; margin-bottom: 60px; page-break-after: always; }
+        .cover img { max-width: 200px; }
+        .cover h1 { font-size: 36px; margin-top: 100px; }
+        .cover p { font-size: 18px; color: #666; }
+        .toc { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 40px; }
+        .toc h2 { margin-top: 0; }
+        .toc ul { list-style-type: none; padding-left: 0; }
+        .toc li { padding: 5px 0; }
+        .toc a { color: #28a745; text-decoration: none; }
+        .step { background: #e8f5e9; padding: 15px; border-left: 4px solid #28a745; margin: 15px 0; border-radius: 4px; }
+        .warning { background: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 15px 0; border-radius: 4px; }
+        .info { background: #e3f2fd; padding: 15px; border-left: 4px solid #2196f3; margin: 15px 0; border-radius: 4px; }
+        .screenshot { border: 1px solid #ddd; padding: 10px; margin: 15px 0; background: #fafafa; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: #28a745; color: white; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        .footer { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; }
+        ul, ol { margin-left: 20px; }
+        li { margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="cover">
+    <h1>MANUAL DE USUARIO</h1>
+    <h2 style="color: #28a745; font-size: 28px; border: none;">ROL: CLIENTE</h2>
+    <p style="font-size: 24px; margin-top: 40px;"><strong>TuSuper</strong></p>
+    <p>Tu tienda local en linea</p>
+    <br><br><br>
+    <p>Version 1.0</p>
+    <p>Diciembre 2024</p>
+</div>
+
+<!-- TABLA DE CONTENIDOS -->
+<div class="toc">
+    <h2>Tabla de Contenidos</h2>
+    <ul>
+        <li><a href="#intro">1. Introduccion</a></li>
+        <li><a href="#requisitos">2. Requisitos del Sistema</a></li>
+        <li><a href="#registro">3. Registro de Cuenta</a></li>
+        <li><a href="#login">4. Inicio de Sesion</a></li>
+        <li><a href="#panel">5. Panel Principal</a></li>
+        <li><a href="#productos">6. Exploracion de Productos</a></li>
+        <li><a href="#carrito">7. Gestion del Carrito</a></li>
+        <li><a href="#checkout">8. Proceso de Compra</a></li>
+        <li><a href="#pedidos">9. Seguimiento de Pedidos</a></li>
+        <li><a href="#perfil">10. Gestion del Perfil</a></li>
+        <li><a href="#faq">11. Preguntas Frecuentes</a></li>
+    </ul>
+</div>
+
+<!-- 1. INTRODUCCION -->
+<h2 id="intro">1. Introduccion</h2>
+<p>Bienvenido a <strong>TuSuper</strong>, tu tienda local en linea. Este manual te guiara paso a paso en el uso de la plataforma para realizar tus compras de manera facil y rapida.</p>
+
+<p>Como cliente de TuSuper, podras:</p>
+<ul>
+    <li>Explorar un amplio catalogo de productos</li>
+    <li>Agregar productos a tu carrito de compras</li>
+    <li>Realizar pedidos con entrega a domicilio</li>
+    <li>Hacer seguimiento de tus pedidos en tiempo real</li>
+    <li>Gestionar tu informacion personal</li>
+</ul>
+
+<!-- 2. REQUISITOS -->
+<h2 id="requisitos">2. Requisitos del Sistema</h2>
+<table>
+    <tr>
+        <th>Requisito</th>
+        <th>Especificacion</th>
+    </tr>
+    <tr>
+        <td>Navegador Web</td>
+        <td>Google Chrome, Firefox, Safari o Edge (versiones actualizadas)</td>
+    </tr>
+    <tr>
+        <td>Conexion a Internet</td>
+        <td>Conexion estable de banda ancha</td>
+    </tr>
+    <tr>
+        <td>Dispositivo</td>
+        <td>Computador, tablet o smartphone</td>
+    </tr>
+</table>
+
+<!-- 3. REGISTRO -->
+<h2 id="registro">3. Registro de Cuenta</h2>
+<p>Para comenzar a usar TuSuper, primero debes crear una cuenta:</p>
+
+<div class="step">
+    <h3>Pasos para registrarse:</h3>
+    <ol>
+        <li>Ingresa a la pagina principal de TuSuper</li>
+        <li>Haz clic en el enlace <strong>"Registrate aqui"</strong> ubicado debajo del formulario de inicio de sesion</li>
+        <li>Completa el formulario con tus datos:
+            <ul>
+                <li><strong>Nombre completo:</strong> Tu nombre y apellido</li>
+                <li><strong>Email:</strong> Tu correo electronico (sera tu usuario)</li>
+                <li><strong>Contrasena:</strong> Crea una contrasena segura</li>
+                <li><strong>Confirmar contrasena:</strong> Repite la contrasena</li>
+            </ul>
+        </li>
+        <li>Haz clic en el boton <strong>"Registrarse"</strong></li>
+        <li>Si el registro es exitoso, seras redirigido a la pagina de inicio de sesion</li>
+    </ol>
+</div>
+
+<div class="warning">
+    <strong>Importante:</strong> Asegurate de usar un email valido, ya que sera tu identificador unico en la plataforma.
+</div>
+
+<!-- 4. LOGIN -->
+<h2 id="login">4. Inicio de Sesion</h2>
+<p>Una vez registrado, puedes acceder a tu cuenta:</p>
+
+<div class="step">
+    <h3>Pasos para iniciar sesion:</h3>
+    <ol>
+        <li>Ingresa a la pagina de login de TuSuper</li>
+        <li>Introduce tu <strong>email</strong> registrado</li>
+        <li>Introduce tu <strong>contrasena</strong></li>
+        <li>Haz clic en <strong>"Iniciar Sesion"</strong></li>
+        <li>Seras redirigido a tu panel principal</li>
+    </ol>
+</div>
+
+<div class="info">
+    <strong>Consejo:</strong> Si olvidaste tu contrasena, contacta al administrador del sistema para restablecerla.
+</div>
+
+<!-- 5. PANEL PRINCIPAL -->
+<h2 id="panel">5. Panel Principal</h2>
+<p>El panel principal es tu centro de control donde puedes ver un resumen de tu actividad:</p>
+
+<h3>5.1 Elementos del Panel</h3>
+<table>
+    <tr>
+        <th>Seccion</th>
+        <th>Descripcion</th>
+    </tr>
+    <tr>
+        <td><strong>Carrito</strong></td>
+        <td>Muestra la cantidad de productos en tu carrito actual. Haz clic para ir directamente al carrito.</td>
+    </tr>
+    <tr>
+        <td><strong>Mis Pedidos</strong></td>
+        <td>Muestra el total de pedidos que has realizado. Haz clic para ver el historial completo.</td>
+    </tr>
+    <tr>
+        <td><strong>Ver Productos</strong></td>
+        <td>Acceso rapido al catalogo de productos disponibles.</td>
+    </tr>
+    <tr>
+        <td><strong>Pedidos Recientes</strong></td>
+        <td>Lista de tus ultimos pedidos con su estado actual.</td>
+    </tr>
+    <tr>
+        <td><strong>Mi Informacion</strong></td>
+        <td>Resumen de tus datos personales con opcion de editar perfil.</td>
+    </tr>
+</table>
+
+<h3>5.2 Barra de Navegacion</h3>
+<p>En la parte superior encontraras la barra de navegacion con accesos rapidos a:</p>
+<ul>
+    <li><strong>Panel:</strong> Regresa al panel principal</li>
+    <li><strong>Productos:</strong> Explora el catalogo</li>
+    <li><strong>Carrito:</strong> Ver tu carrito de compras</li>
+    <li><strong>Pedidos:</strong> Historial de pedidos</li>
+    <li><strong>Tu nombre:</strong> Menu con opcion de cerrar sesion</li>
+</ul>
+
+<!-- 6. PRODUCTOS -->
+<h2 id="productos">6. Exploracion de Productos</h2>
+<p>En la seccion de productos puedes ver todo el catalogo disponible:</p>
+
+<h3>6.1 Buscar Productos</h3>
+<div class="step">
+    <ol>
+        <li>Ingresa a la seccion <strong>"Productos"</strong></li>
+        <li>Usa la <strong>barra de busqueda</strong> para encontrar productos especificos</li>
+        <li>Escribe el nombre del producto y presiona Enter o haz clic en el boton de busqueda</li>
+    </ol>
+</div>
+
+<h3>6.2 Filtrar por Categoria</h3>
+<p>Puedes filtrar productos por categoria usando los botones disponibles:</p>
+<ul>
+    <li><strong>Todos:</strong> Muestra todos los productos</li>
+    <li><strong>Categorias especificas:</strong> Lacteos, Bebidas, Snacks, Aseo, etc.</li>
+</ul>
+
+<h3>6.3 Informacion del Producto</h3>
+<p>Cada tarjeta de producto muestra:</p>
+<ul>
+    <li>Imagen del producto (si esta disponible)</li>
+    <li>Categoria</li>
+    <li>Nombre del producto</li>
+    <li>Precio en pesos colombianos (COP)</li>
+    <li>Estado de disponibilidad:
+        <ul>
+            <li><span style="color: green;">Disponible</span> - Stock suficiente</li>
+            <li><span style="color: orange;">Ultimas unidades</span> - Stock bajo (10 o menos)</li>
+            <li><span style="color: red;">Agotado</span> - Sin stock</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>6.4 Agregar al Carrito</h3>
+<div class="step">
+    <ol>
+        <li>Encuentra el producto deseado</li>
+        <li>Selecciona la <strong>cantidad</strong> usando el campo numerico</li>
+        <li>Haz clic en el boton <strong>"Agregar"</strong></li>
+        <li>Recibiras una confirmacion y el contador del carrito se actualizara</li>
+    </ol>
+</div>
+
+<!-- 7. CARRITO -->
+<h2 id="carrito">7. Gestion del Carrito</h2>
+<p>El carrito de compras te permite revisar y modificar los productos antes de realizar tu pedido:</p>
+
+<h3>7.1 Ver el Carrito</h3>
+<p>Accede al carrito haciendo clic en el icono del carrito en la barra de navegacion o desde el panel principal.</p>
+
+<h3>7.2 Contenido del Carrito</h3>
+<p>En el carrito veras una tabla con:</p>
+<ul>
+    <li><strong>Producto:</strong> Nombre y marca del producto</li>
+    <li><strong>Precio:</strong> Precio unitario</li>
+    <li><strong>Cantidad:</strong> Cantidad seleccionada (modificable)</li>
+    <li><strong>Subtotal:</strong> Precio x Cantidad</li>
+</ul>
+
+<h3>7.3 Modificar Cantidades</h3>
+<div class="step">
+    <ol>
+        <li>Cambia el numero en el campo de cantidad</li>
+        <li>Haz clic en el boton de actualizacion (icono de flechas)</li>
+        <li>El subtotal se actualizara automaticamente</li>
+    </ol>
+</div>
+
+<h3>7.4 Eliminar Productos</h3>
+<p>Para eliminar un producto del carrito, haz clic en el boton de <strong>basura</strong> (icono rojo) junto al producto.</p>
+
+<h3>7.5 Vaciar Carrito</h3>
+<p>Si deseas eliminar todos los productos, haz clic en <strong>"Vaciar Carrito"</strong>.</p>
+
+<h3>7.6 Resumen del Carrito</h3>
+<p>A la derecha veras un resumen con:</p>
+<ul>
+    <li>Cantidad total de productos</li>
+    <li>Costo de envio (Gratis)</li>
+    <li>Total a pagar</li>
+    <li>Boton <strong>"Proceder al Pago"</strong></li>
+</ul>
+
+<!-- 8. CHECKOUT -->
+<h2 id="checkout">8. Proceso de Compra (Checkout)</h2>
+<p>Una vez tengas los productos en tu carrito, puedes proceder con la compra:</p>
+
+<h3>8.1 Direccion de Entrega</h3>
+<div class="step">
+    <ol>
+        <li>Verifica o ingresa tu <strong>direccion completa</strong> de entrega</li>
+        <li>Agrega <strong>observaciones</strong> si es necesario (ej: "Apartamento 301")</li>
+        <li>Puedes agregar <strong>notas adicionales</strong> para el repartidor</li>
+    </ol>
+</div>
+
+<h3>8.2 Metodo de Pago</h3>
+<p>Actualmente disponible:</p>
+<ul>
+    <li><strong>Pago en efectivo contra entrega:</strong> Pagas cuando recibas tu pedido</li>
+</ul>
+<div class="info">
+    <strong>Proximamente:</strong> Transferencia bancaria y tarjetas de credito/debito.
+</div>
+
+<h3>8.3 Confirmar Pedido</h3>
+<div class="step">
+    <ol>
+        <li>Revisa el resumen de tu pedido</li>
+        <li>Verifica el total a pagar</li>
+        <li>Haz clic en <strong>"Confirmar Pedido"</strong></li>
+        <li>Recibiras una confirmacion con el numero de tu pedido</li>
+    </ol>
+</div>
+
+<!-- 9. PEDIDOS -->
+<h2 id="pedidos">9. Seguimiento de Pedidos</h2>
+<p>Puedes ver el estado de todos tus pedidos en la seccion "Mis Pedidos":</p>
+
+<h3>9.1 Estados del Pedido</h3>
+<table>
+    <tr>
+        <th>Estado</th>
+        <th>Descripcion</th>
+    </tr>
+    <tr>
+        <td><strong>PENDIENTE</strong></td>
+        <td>Pedido recibido, esperando confirmacion</td>
+    </tr>
+    <tr>
+        <td><strong>CONFIRMADO</strong></td>
+        <td>Pedido confirmado por la tienda</td>
+    </tr>
+    <tr>
+        <td><strong>EN_PREPARACION</strong></td>
+        <td>Tu pedido esta siendo preparado</td>
+    </tr>
+    <tr>
+        <td><strong>ENVIADO</strong></td>
+        <td>Tu pedido esta en camino</td>
+    </tr>
+    <tr>
+        <td><strong>ENTREGADO</strong></td>
+        <td>Pedido entregado exitosamente</td>
+    </tr>
+    <tr>
+        <td><strong>CANCELADO</strong></td>
+        <td>Pedido cancelado</td>
+    </tr>
+</table>
+
+<h3>9.2 Ver Detalle del Pedido</h3>
+<p>Haz clic en <strong>"Ver Detalles"</strong> para ver informacion completa:</p>
+<ul>
+    <li>Numero de pedido</li>
+    <li>Fecha y hora del pedido</li>
+    <li>Lista de productos con cantidades y precios</li>
+    <li>Direccion de entrega</li>
+    <li>Total pagado</li>
+    <li>Estado actual</li>
+</ul>
+
+<!-- 10. PERFIL -->
+<h2 id="perfil">10. Gestion del Perfil</h2>
+<p>Manten tu informacion actualizada para una mejor experiencia:</p>
+
+<h3>10.1 Acceder al Perfil</h3>
+<p>Desde el panel principal, haz clic en <strong>"Editar Perfil"</strong> o accede desde el menu de navegacion.</p>
+
+<h3>10.2 Datos Editables</h3>
+<ul>
+    <li><strong>Nombre completo:</strong> Tu nombre para identificarte</li>
+    <li><strong>Telefono:</strong> Numero de contacto para entregas</li>
+    <li><strong>Direccion de entrega:</strong> Tu direccion predeterminada</li>
+</ul>
+
+<div class="warning">
+    <strong>Nota:</strong> El email no se puede cambiar ya que es tu identificador unico.
+</div>
+
+<h3>10.3 Guardar Cambios</h3>
+<p>Despues de modificar tus datos, haz clic en <strong>"Guardar Cambios"</strong> para actualizar tu informacion.</p>
+
+<!-- 11. FAQ -->
+<h2 id="faq">11. Preguntas Frecuentes</h2>
+
+<h3>¿Como puedo cambiar mi contrasena?</h3>
+<p>Actualmente debes contactar al administrador del sistema para cambiar tu contrasena.</p>
+
+<h3>¿Puedo cancelar un pedido?</h3>
+<p>Contacta al tendero o administrador lo antes posible para solicitar la cancelacion.</p>
+
+<h3>¿Cual es el costo del envio?</h3>
+<p>El envio es <strong>GRATIS</strong> para todos los pedidos.</p>
+
+<h3>¿Como pago mi pedido?</h3>
+<p>Actualmente solo se acepta pago en efectivo contra entrega.</p>
+
+<h3>¿Que hago si un producto esta agotado?</h3>
+<p>Los productos agotados no pueden agregarse al carrito. Vuelve a revisar mas tarde o busca alternativas.</p>
+
+<h3>¿Como cierro sesion?</h3>
+<p>Haz clic en tu nombre en la barra de navegacion y selecciona <strong>"Cerrar Sesion"</strong>.</p>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p><strong>TuSuper</strong> - Tu tienda local en linea</p>
+    <p>Manual de Usuario - Cliente | Version 1.0 | Diciembre 2024</p>
+</div>
+
+</body>
+</html>

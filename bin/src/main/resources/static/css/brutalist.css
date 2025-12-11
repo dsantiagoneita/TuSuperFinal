@@ -1,0 +1,1131 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * TUSUPER — ESTILOS BRUTALISTA-POP
+ * Capa de presentación premium
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * 
+ * ÍNDICE:
+ * 1. Reset y Base
+ * 2. Tipografía
+ * 3. Layout y Contenedores
+ * 4. Navegación
+ * 5. Sidebar
+ * 6. Cards
+ * 7. Botones
+ * 8. Formularios
+ * 9. Tablas
+ * 10. Badges y Estados
+ * 11. Alertas
+ * 12. Utilidades
+ * 13. Animaciones
+ * 14. Responsive
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * 1. RESET Y BASE
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--ts-font-body);
+    font-size: var(--ts-text-base);
+    font-weight: var(--ts-font-regular);
+    line-height: var(--ts-leading-normal);
+    color: var(--ts-black);
+    background-color: var(--ts-cream);
+    min-height: 100vh;
+}
+
+::selection {
+    background-color: var(--ts-accent-secondary);
+    color: var(--ts-black);
+}
+
+/* Focus visible para accesibilidad */
+:focus-visible {
+    outline: var(--ts-border-thick) solid var(--ts-accent-electric);
+    outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * 2. TIPOGRAFÍA
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Titulares — Playfair Display */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.ts-heading {
+    font-family: var(--ts-font-display);
+    font-weight: var(--ts-font-black);
+    line-height: var(--ts-leading-tight);
+    letter-spacing: var(--ts-tracking-tight);
+    color: var(--ts-black);
+    margin-bottom: var(--ts-space-4);
+}
+
+h1,
+.ts-h1 {
+    font-size: var(--ts-text-5xl);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-tighter);
+}
+
+h2,
+.ts-h2 {
+    font-size: var(--ts-text-4xl);
+    text-transform: uppercase;
+}
+
+h3,
+.ts-h3 {
+    font-size: var(--ts-text-3xl);
+}
+
+h4,
+.ts-h4 {
+    font-size: var(--ts-text-2xl);
+}
+
+h5,
+.ts-h5 {
+    font-size: var(--ts-text-xl);
+}
+
+    {
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: repeating-linear-gradient(90deg,
+            var(--ts-accent-secondary) 0,
+            var(--ts-accent-secondary) 20px,
+            transparent 20px,
+            transparent 40px);
+}
+
+.navbar-tusuper .navbar-brand,
+.ts-navbar-brand {
+    font-family: var(--ts-font-display);
+    font-size: var(--ts-text-2xl);
+    font-weight: var(--ts-font-black);
+    color: var(--ts-black) !important;
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-wider);
+    display: flex;
+    align-items: center;
+    gap: var(--ts-space-2);
+}
+
+.navbar-tusuper .navbar-brand i,
+.ts-navbar-brand i {
+    color: var(--ts-accent-primary);
+    font-size: var(--ts-text-3xl);
+}
+
+.navbar-tusuper .nav-link {
+    font-family: var(--ts-font-body);
+    font-size: var(--ts-text-sm);
+    font-weight: var(--ts-font-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-wide);
+    color: var(--ts-gray-600) !important;
+    padding: var(--ts-space-2) var(--ts-space-4) !important;
+    position: relative;
+    transition: color var(--ts-transition-fast);
+}
+
+.navbar-tusuper .nav-link:hover,
+.navbar-tusuper .nav-link:focus {
+    color: var(--ts-black) !important;
+}
+
+.navbar-tusuper .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--ts-space-4);
+    right: var(--ts-space-4);
+    height: 3px;
+    background: var(--ts-accent-primary);
+    transform: scaleX(0);
+    transition: transform var(--ts-transition-fast);
+}
+
+.navbar-tusuper .nav-link:hover::after,
+.navbar-tusuper .nav-link:focus::after {
+    transform: scaleX(1);
+}
+
+/* Badge del carrito */
+.badge-tusuper {
+    background: var(--ts-accent-primary) !important;
+    color: var(--ts-white) !important;
+    font-family: var(--ts-font-body);
+    font-weight: var(--ts-font-black);
+    font-size: var(--ts-text-xs);
+    padding: 4px 8px;
+    border-radius: 0;
+    position: relative;
+    top: -2px;
+}
+
+/* Dropdown */
+.navbar-tusuper .dropdown-menu {
+    background: var(--ts-black);
+    border: var(--ts-border-medium) solid var(--ts-gray-700);
+    border-radius: 0;
+    box-shadow: var(--ts-shadow-brutal-md);
+    padding: var(--ts-space-2) 0;
+}
+
+.navbar-tusuper .dropdown-item {
+    color: var(--ts-gray-300);
+    font-size: var(--ts-text-sm);
+    font-weight: var(--ts-font-medium);
+    padding: var(--ts-space-2) var(--ts-space-4);
+    transition: all var(--ts-transition-fast);
+}
+
+.navbar-tusuper .dropdown-item:hover,
+.navbar-tusuper .dropdown-item:focus {
+    background: var(--ts-accent-primary);
+    color: var(--ts-white);
+}
+
+.navbar-tusuper .dropdown-divider {
+    border-color: var(--ts-gray-700);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * 5. SIDEBAR — Brutalista
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.sidebar {
+    background: var(--ts-white) !important;
+    min-height: calc(100vh - 70px);
+    border-right: var(--ts-border-heavy) solid var(--ts-black);
+    position: relative;
+}
+
+.sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg,
+            var(--ts-accent-primary),
+            var(--ts-accent-secondary),
+            var(--ts-accent-electric));
+}
+
+.sidebar .nav-link {
+    color: var(--ts-gray-600) !important;
+    font-family: var(--ts-font-body);
+    font-size: var(--ts-text-sm);
+    font-weight: var(--ts-font-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-wide);
+    padding: var(--ts-space-4) var(--ts-space-5) !important;
+    border-left: 4px solid transparent;
+    transition: all var(--ts-transition-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--ts-space-3);
+}
+
+.sidebar .nav-link i {
+    font-size: var(--ts-text-lg);
+    width: 24px;
+    text-align: center;
+}
+
+.sidebar .nav-link:hover {
+    color: var(--ts-black) !important;
+    background: var(--ts-gray-100) !important;
+    border-left-color: var(--ts-accent-secondary);
+}
+
+.sidebar .nav-link.active {
+    color: var(--ts-black) !important;
+    background: var(--ts-gray-200) !important;
+    border-left-color: var(--ts-accent-primary);
+}
+
+.sidebar hr {
+    border-color: var(--ts-gray-300);
+    margin: var(--ts-space-4) var(--ts-space-4);
+}
+
+.sidebar .btn-outline-light {
+    border: var(--ts-border-medium) solid var(--ts-gray-600);
+    color: var(--ts-gray-400);
+    font-weight: var(--ts-font-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-wide);
+    font-size: var(--ts-text-sm);
+    border-radius: 0;
+    transition: all var(--ts-transition-fast);
+}
+
+.sidebar .btn-outline-light:hover {
+    background: var(--ts-accent-primary);
+    border-color: var(--ts-accent-primary);
+    color: var(--ts-white);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * 6. CARDS — Brutalistas con sombra dura
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.card {
+    background: var(--ts-white);
+    border: var(--ts-border-thick) solid var(--ts-black) !important;
+    border-radius: var(--ts-radius-md) !important;
+    box-shadow: var(--ts-shadow-brutal-md);
+    transition: transform var(--ts-transition-fast),
+        box-shadow var(--ts-transition-fast);
+}
+
+.card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0 var(--ts-black);
+}
+
+.card-header {
+    background: var(--ts-black) !important;
+    color: var(--ts-white) !important;
+    border-bottom: var(--ts-border-medium) solid var(--ts-accent-primary) !important;
+    padding: var(--ts-space-4) var(--ts-space-5);
+    border-radius: var(--ts-radius-md) var(--ts-radius-md) 0 0 !important;
+}
+
+.card-header h5,
+.card-header h6 {
+    font-family: var(--ts-font-display);
+    font-weight: var(--ts-font-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-wide);
+    margin: 0;
+    color: var(--ts-white);
+}
+
+.card-header.bg-white {
+    background: var(--ts-white) !important;
+    color: var(--ts-black) !important;
+    border-bottom: var(--ts-border-medium) solid var(--ts-gray-200) !important;
+}
+
+.card-header.bg-white h5,
+.card-header.bg-white h6 {
+    color: var(--ts-black);
+}
+
+.card-body {
+    padding: var(--ts-space-5);
+}
+
+.card-footer {
+    background: var(--ts-gray-100) !important;
+    border-top: var(--ts-border-medium) solid var(--ts-black) !important;
+    padding: var(--ts-space-4) var(--ts-space-5);
+    border-radius: 0 0 var(--ts-radius-md) var(--ts-radius-md) !important;
+}
+
+.card-footer.bg-white {
+    background: var(--ts-white) !important;
+    border-top: var(--ts-border-thin) solid var(--ts-gray-200) !important;
+}
+
+/* Cards de estadísticas coloridas */
+.card.bg-primary,
+.card.bg-success,
+.card.bg-info,
+.card.bg-warning,
+.card.bg-danger {
+    border-color: var(--ts-black) !important;
+}
+
+.card.bg-primary {
+    background: var(--ts-accent-electric) !important;
+    color: var(--ts-black) !important;
+}
+
+.card.bg-success {
+    background: var(--ts-accent-neon) !important;
+    color: var(--ts-black) !important;
+}
+
+.card.bg-info {
+    background: var(--ts-accent-secondary) !important;
+    color: var(--ts-black) !important;
+}
+
+.card.bg-warning {
+    background: var(--ts-accent-primary) !important;
+    color: var(--ts-white) !important;
+}
+
+.card.bg-danger {
+    background: var(--ts-error) !important;
+    color: var(--ts-white) !important;
+}
+
+.card.bg-primary .text-white,
+.card.bg-success .text-white,
+.card.bg-info .text-white {
+    color: var(--ts-black) !important;
+}
+
+.card.bg-primary h2,
+.card.bg-primary h4,
+.card.bg-primary h6,
+.card.bg-success h2,
+.card.bg-success h4,
+.card.bg-success h6,
+.card.bg-info h2,
+.card.bg-info h4,
+.card.bg-info h6 {
+    color: var(--ts-black);
+}
+
+/* Card de producto */
+.producto-card {
+    overflow: hidden;
+}
+
+.producto-card:hover {
+    transform: translate(-4px, -4px) !important;
+    box-shadow: 10px 10px 0 var(--ts-accent-primary);
+}
+
+.producto-card .card-img-top {
+    border-bottom: var(--ts-border-medium) solid var(--ts-black);
+    background: var(--ts-gray-100) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.producto-card .card-img-top::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--ts-overlay-warm);
+    opacity: 0;
+    transition: opacity var(--ts-transition-fast);
+}
+
+.producto-card:hover .card-img-top::after {
+    opacity: 1;
+}
+
+.producto-card .badge {
+    font-family: var(--ts-font-body);
+    font-weight: var(--ts-font-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-wide);
+    font-size: var(--ts-text-xs);
+    padding: 6px 10px;
+    border-radius: 0;
+    background: var(--ts-black) !important;
+}
+
+.producto-card .card-title {
+    font-family: var(--ts-font-display);
+    font-weight: var(--ts-font-bold);
+    font-size: var(--ts-text-lg);
+    text-transform: uppercase;
+}
+
+.producto-card .card-footer {
+    background: var(--ts-gray-100) !important;
+    border-top: var(--ts-border-medium) solid var(--ts-black) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * 7. BOTONES — Brutalistas
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.btn {
+    font-family: var(--ts-font-body);
+    font-weight: var(--ts-font-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-wide);
+    border-radius: var(--ts-radius-sm);
+    padding: var(--ts-space-3) var(--ts-space-5);
+    border-width: var(--ts-border-medium);
+    transition: all var(--ts-transition-fast);
+    position: relative;
+}
+
+/* Botón principal TuSuper */
+.btn-tusuper {
+    background: var(--ts-accent-primary) !important;
+    border: var(--ts-border-medium) solid var(--ts-black) !important;
+    color: var(--ts-white) !important;
+    box-shadow: 4px 4px 0 var(--ts-black);
+}
+
+.btn-tusuper:hover,
+.btn-tusuper:focus {
+    background: var(--ts-black) !important;
+    color: var(--ts-accent-primary) !important;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ts-accent-primary);
+}
+
+.btn-tusuper:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--ts-black);
+}
+
+/* Botón primario */
+.btn-primary {
+    background: var(--ts-accent-electric) !important;
+    border: var(--ts-border-medium) solid var(--ts-black) !important;
+    color: var(--ts-black) !important;
+    box-shadow: 4px 4px 0 var(--ts-black);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background: var(--ts-black) !important;
+    color: var(--ts-accent-electric) !important;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ts-accent-electric);
+}
+
+/* Botón secundario */
+.btn-secondary {
+    background: var(--ts-gray-200) !important;
+    border: var(--ts-border-medium) solid var(--ts-black) !important;
+    color: var(--ts-black) !important;
+    box-shadow: 4px 4px 0 var(--ts-black);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background: var(--ts-black) !important;
+    color: var(--ts-white) !important;
+}
+
+/* Botón success */
+.btn-success {
+    background: var(--ts-accent-neon) !important;
+    border: var(--ts-border-medium) solid var(--ts-black) !important;
+    color: var(--ts-black) !important;
+    box-shadow: 4px 4px 0 var(--ts-black);
+}
+
+.btn-success:hover,
+.btn-success:focus {
+    background: var(--ts-black) !important;
+    color: var(--ts-accent-neon) !important;
+}
+
+/* Botón danger */
+.btn-danger {
+    background: var(--ts-error) !important;
+    border: var(--ts-border-medium) solid var(--ts-black) !important;
+    color: var(--ts-white) !important;
+    box-shadow: 4px 4px 0 var(--ts-black);
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+    background: var(--ts-black) !important;
+    color: var(--ts-error) !important;
+}
+
+/* Botón warning */
+.btn-warning {
+    background: var(--ts-accent-secondary) !important;
+    border: var(--ts-border-medium) solid var(--ts-black) !important;
+    color: var(--ts-black) !important;
+    box-shadow: 4px 4px 0 var(--ts-black);
+}
+
+.btn-warning:hover,
+.btn-warning:focus {
+    background: var(--ts-black) !important;
+    color: var(--ts-accent-secondary) !important;
+}
+
+/* Botones outline */
+.btn-outline-primary,
+.btn-outline-success,
+.btn-outline-danger,
+.btn-outline-secondary {
+    background: transparent !important;
+    border: var(--ts-border-medium) solid var(--ts-black) !important;
+    color: var(--ts-black) !important;
+    box-shadow: 3px 3px 0 var(--ts-black);
+}
+
+.btn-outline-primary:hover {
+    background: var(--ts-accent-electric) !important;
+    color: var(--ts-black) !important;
+}
+
+.btn-outline-success:hover {
+    background: var(--ts-accent-neon) !important;
+    color: var(--ts-black) !important;
+}
+
+.btn-outline-danger:hover {
+    background: var(--ts-error) !important;
+    color: var(--ts-white) !important;
+}
+
+.btn-outline-secondary:hover {
+    background: var(--ts-gray-200) !important;
+}
+
+/* Botón pequeño */
+.btn-sm {
+    padding: var(--ts-space-2) var(--ts-space-3);
+    font-size: var(--ts-text-xs);
+    box-shadow: 3px 3px 0 var(--ts-black);
+}
+
+/* Botón grande */
+.btn-lg {
+    padding: var(--ts-space-4) var(--ts-space-8);
+    font-size: var(--ts-text-lg);
+}
+
+/* Botón disabled */
+.btn:disabled,
+.btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * 8. FORMULARIOS — Brutalistas
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.form-control {
+    border: var(--ts-border-medium) solid var(--ts-black);
+    border-radius: var(--ts-radius-sm);
+    padding: var(--ts-space-3) var(--ts-space-4);
+    font-family: var(--ts-font-body);
+    font-size: var(--ts-text-base);
+    transition: all var(--ts-transition-fast);
+    background: var(--ts-white);
+}
+
+.form-control:focus {
+    border-color: var(--ts-accent-primary);
+    box-shadow: 4px 4px 0 var(--ts-accent-primary);
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: var(--ts-gray-400);
+    font-style: italic;
+}
+
+.form-label {
+    font-family: var(--ts-font-body);
+    font-size: var(--ts-text-sm);
+    font-weight: var(--ts-font-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-wide);
+    color: var(--ts-black);
+    margin-bottom: var(--ts-space-2);
+}
+
+/* Input group */
+.input-group {
+    position: relative;
+}
+
+.input-group .input-group-text {
+    background: var(--ts-black);
+    border: var(--ts-border-medium) solid var(--ts-black);
+    border-radius: 0;
+    color: var(--ts-white);
+    font-size: var(--ts-text-lg);
+}
+
+.input-group .form-control {
+    border-left: none;
+}
+
+.input-group .form-control:focus {
+    border-color: var(--ts-black);
+    box-shadow: none;
+}
+
+.input-group:focus-within {
+    box-shadow: 4px 4px 0 var(--ts-accent-primary);
+}
+
+/* Select */
+.form-select {
+    border: var(--ts-border-medium) solid var(--ts-black);
+    border-radius: 0;
+    padding: var(--ts-space-3) var(--ts-space-4);
+    font-family: var(--ts-font-body);
+    cursor: pointer;
+}
+
+.form-select:focus {
+    border-color: var(--ts-accent-primary);
+    box-shadow: 4px 4px 0 var(--ts-accent-primary);
+}
+
+/* Checkbox y Radio */
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    border: var(--ts-border-medium) solid var(--ts-black);
+    border-radius: 0;
+}
+
+.form-check-input:checked {
+    background-color: var(--ts-accent-primary);
+    border-color: var(--ts-black);
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 3px var(--ts-accent-secondary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * 9. TABLAS — Brutalistas
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.table {
+    border: var(--ts-border-medium) solid var(--ts-black);
+    margin-bottom: 0;
+}
+
+.table thead {
+    background: var(--ts-black);
+    color: var(--ts-white);
+}
+
+.table thead th {
+    font-family: var(--ts-font-body);
+    font-size: var(--ts-text-xs);
+    font-weight: var(--ts-font-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-widest);
+    padding: var(--ts-space-4);
+    border-bottom: var(--ts-border-medium) solid var(--ts-accent-primary);
+    vertical-align: middle;
+}
+
+.table tbody td {
+    padding: var(--ts-space-4);
+    vertical-align: middle;
+    border-bottom: var(--ts-border-thin) solid var(--ts-gray-200);
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-hover tbody tr:hover {
+    background: var(--ts-accent-secondary);
+    color: var(--ts-black);
+}
+
+.table-hover tbody tr:hover .precio {
+    color: var(--ts-black);
+}
+
+/* Tabla responsive wrapper */
+.table-responsive {
+    border: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * 10. BADGES Y ESTADOS
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.badge {
+    font-family: var(--ts-font-body);
+    font-weight: var(--ts-font-bold);
+    font-size: var(--ts-text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-wide);
+    padding: 6px 12px;
+    border-radius: 0;
+    border: var(--ts-border-thin) solid var(--ts-black);
+}
+
+.badge.bg-secondary {
+    background: var(--ts-gray-200) !important;
+    color: var(--ts-black) !important;
+}
+
+.badge.bg-success {
+    background: var(--ts-accent-neon) !important;
+    color: var(--ts-black) !important;
+}
+
+.badge.bg-danger {
+    background: var(--ts-error) !important;
+    color: var(--ts-white) !important;
+}
+
+.badge.bg-warning {
+    background: var(--ts-accent-secondary) !important;
+    color: var(--ts-black) !important;
+}
+
+.badge.bg-info {
+    background: var(--ts-accent-electric) !important;
+    color: var(--ts-black) !important;
+}
+
+.badge.bg-primary {
+    background: var(--ts-accent-primary) !important;
+    color: var(--ts-white) !important;
+}
+
+/* Estados de pedido */
+.estado-PENDIENTE {
+    background: var(--ts-estado-pendiente) !important;
+    color: var(--ts-black) !important;
+}
+
+.estado-CONFIRMADO {
+    background: var(--ts-estado-confirmado) !important;
+    color: var(--ts-white) !important;
+}
+
+.estado-EN_PREPARACION {
+    background: var(--ts-estado-preparacion) !important;
+    color: var(--ts-white) !important;
+}
+
+.estado-LISTO {
+    background: var(--ts-estado-listo) !important;
+    color: var(--ts-black) !important;
+}
+
+.estado-EN_CAMINO {
+    background: var(--ts-estado-camino) !important;
+    color: var(--ts-black) !important;
+}
+
+.estado-ENTREGADO {
+    background: var(--ts-estado-entregado) !important;
+    color: var(--ts-black) !important;
+}
+
+.estado-CANCELADO {
+    background: var(--ts-estado-cancelado) !important;
+    color: var(--ts-white) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * 11. ALERTAS — Brutalistas
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+.alert {
+    border: var(--ts-border-thick) solid var(--ts-black);
+    border-radius: 0;
+    padding: var(--ts-space-4) var(--ts-space-5);
+    font-weight: var(--ts-font-medium);
+    position: relative;
+    box-shadow: var(--ts-shadow-brutal-sm);
+}
+
+.alert-success {
+    background: var(--ts-accent-neon);
+    color: var(--ts-black);
+}
+
+.alert-danger {
+    background: var(--ts-error);
+    color: var(--ts-white);
+}
+
+.alert-warning {
+    background: var(--ts-accent-secondary);
+    color: var(--ts-black);
+}
+
+.alert-info {
+    background: var(--ts-accent-electric);
+    color: var(--ts-black);
+}
+
+.alert .btn-close {
+    filter: none;
+    opacity: 0.8;
+}
+
+.alert-danger .btn-close {
+    filter: invert(1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * 12. UTILIDADES
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Texto */
+.text-success {
+    color: var(--ts-success) !important;
+}
+
+.text-danger {
+    color: var(--ts-error) !important;
+}
+
+.text-warning {
+    color: var(--ts-warning) !important;
+}
+
+.text-muted {
+    color: var(--ts-gray-500) !important;
+}
+
+/* Backgrounds */
+.bg-light {
+    background: var(--ts-cream) !important;
+}
+
+/* Separadores */
+hr {
+    border-top: var(--ts-border-medium) solid var(--ts-gray-300);
+    opacity: 1;
+}
+
+/* Iconos grandes */
+.display-1,
+.display-2,
+.display-3,
+.display-4 {
+    font-weight: var(--ts-font-regular);
+}
+
+/* List group */
+.list-group {
+    border-radius: 0;
+}
+
+.list-group-item {
+    border: none;
+    border-bottom: var(--ts-border-thin) solid var(--ts-gray-200);
+    padding: var(--ts-space-4);
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+/* Btn group */
+.btn-group .btn {
+    box-shadow: none;
+    border: var(--ts-border-medium) solid var(--ts-black);
+}
+
+.btn-group .btn:not(:last-child) {
+    border-right: none;
+}
+
+.btn-group .btn.active,
+.btn-group .btn:hover {
+    background: var(--ts-black) !important;
+    color: var(--ts-white) !important;
+    z-index: 1;
+}
+
+.btn-outline-success {
+    color: var(--ts-black) !important;
+    border-color: var(--ts-black) !important;
+}
+
+.btn-outline-success.active,
+.btn-outline-success:hover {
+    background: var(--ts-accent-neon) !important;
+    color: var(--ts-black) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * 13. ANIMACIONES CSS
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+@keyframes ts-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+@keyframes ts-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes ts-slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ts-animate-shake {
+    animation: ts-shake 0.3s ease;
+}
+
+.ts-animate-pulse {
+    animation: ts-pulse 1.5s ease infinite;
+}
+
+.ts-animate-in {
+    animation: ts-slide-up 0.4s ease forwards;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+ * 14. RESPONSIVE
+ * ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Mobile First Adjustments */
+@media (max-width: 767.98px) {
+
+    h1,
+    .ts-h1 {
+        font-size: var(--ts-text-4xl);
+    }
+
+    h2,
+    .ts-h2 {
+        font-size: var(--ts-text-3xl);
+    }
+
+    h3,
+    .ts-h3 {
+        font-size: var(--ts-text-2xl);
+    }
+
+    .ts-display {
+        font-size: var(--ts-text-5xl);
+    }
+
+    .card {
+        box-shadow: 4px 4px 0 var(--ts-black);
+    }
+
+    .card:hover {
+        transform: none;
+        box-shadow: 4px 4px 0 var(--ts-black);
+    }
+
+    .btn {
+        box-shadow: 3px 3px 0 var(--ts-black);
+    }
+
+    .sidebar {
+        min-height: auto;
+        border-right: none;
+        border-bottom: var(--ts-border-heavy) solid var(--ts-accent-primary);
+    }
+
+    .sidebar .nav-link {
+        padding: var(--ts-space-3) var(--ts-space-4) !important;
+    }
+
+    .navbar-tusuper .navbar-brand {
+        font-size: var(--ts-text-xl);
+    }
+
+    .producto-card:hover {
+        transform: none !important;
+        box-shadow: var(--ts-shadow-brutal-md);
+    }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .ts-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Desktop Large */
+@media (min-width: 1200px) {
+    .container {
+        max-width: var(--ts-container-xl);
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .card:hover,
+    .producto-card:hover,
+    .btn:hover {
+        transform: none !important;
+    }
+}
+
+/* Print */
+@media print {
+
+    .sidebar,
+    .navbar-tusuper,
+    .btn,
+    .alert {
+        box-shadow: none !important;
+    }
+
+    * {
+        color: black !important;
+        background: white !important;
+    }
+}

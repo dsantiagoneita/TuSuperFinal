@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('TuSuper - Escáner de Código de Barras')}"></head>
+<body class="theme-tendero">
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 p-0">
+                <div th:replace="~{fragments/layout :: sidebar-tendero}"></div>
+            </div>
+            <div class="col-md-10 py-4">
+                <div th:replace="~{fragments/layout :: alerts}"></div>
+                
+                <!-- Encabezado -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="bi bi-upc-scan text-success"></i> Escáner de Código de Barras USB</h2>
+                    <div>
+                        <span class="badge bg-success" id="scanner-status">
+                            <i class="bi bi-wifi"></i> Escáner Activo
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Instrucciones -->
+                <div class="alert alert-info mb-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h5><i class="bi bi-info-circle"></i> Cómo usar el escáner</h5>
+                            <ul class="mb-0">
+                                <li><strong>Lector USB:</strong> Simplemente escanee el código de barras del producto. El sistema detectará automáticamente la entrada.</li>
+                                <li><strong>Manual:</strong> Escriba el código en el campo de texto y presione Enter o haga clic en "Buscar".</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="bi bi-upc display-1 text-primary opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Campo de búsqueda -->
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="bi bi-search"></i> Buscar Producto</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-8">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-light">
+                                        <i class="bi bi-upc"></i>
+                                    </span>
+                                    <input type="text" 
+                                           class="form-control form-control-lg" 
+                                           id="barcode-input" 
+                                           placeholder="Escanee o escriba el código de barras..."
+                                           autocomplete="off"
+                                           autofocus>
+                                    <button type="button" class="btn btn-success" id="search-btn">
+                                        <i class="bi bi-search"></i> Buscar
+                                    </button>
+                                </div>
+                                <small class="text-muted">
+                                    <i class="bi bi-keyboard"></i> 
+                                    El lector USB envía los datos automáticamente al escanear
+                                </small>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-outline-secondary w-100" id="clear-btn">
+                                    <i class="bi bi-x-circle"></i> Limpiar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Área de resultado -->
+                <div id="result-area">
+                    <!-- Estado inicial -->
+                    <div class="card shadow-sm" id="initial-state">
+                        <div class="card-body text-center py-5">
+                            <i class="bi bi-upc-scan display-1 text-muted mb-3"></i>
+                            <h4 class="text-muted">Esperando escaneo...</h4>
+                            <p class="text-muted mb-0">
+                                Escanee un código de barras con el lector USB o escriba el código manualmente
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Estado de cargando -->
+                    <div class="card shadow-sm d-none" id="loading-state">
+                        <div class="card-body text-center py-5">
+                            <div class="spinner-border text-success mb-3" role="status">
+                                <span class="visually-hidden">Buscando...</span>
+                            </div>
+                            <h4 class="text-muted">Buscando producto...</h4>
+                            <p class="text-muted mb-0" id="searching-code">Código: </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto encontrado -->
+                    <div class="card shadow-sm border-success d-none" id="success-state">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">
+                                <i class="bi bi-check-circle-fill"></i> Producto Encontrado
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h3 id="product-name" class="mb-3">Nombre del Producto</h3>
+                                    <p class="text-muted" id="product-description">Descripción del producto</p>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <tbody>
+                                                <tr>
+                                                    <th width="150"><i class="bi bi-upc"></i> Código:</th>
+                                                    <td><code id="product-barcode" class="fs-5">000000000</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><i class="bi bi-tag"></i> Categoría:</th>
+                                                    <td id="product-category">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <th><i class="bi bi-building"></i> Marca:</th>
+                                                    <td id="product-brand">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <th><i class="bi bi-currency-dollar"></i> Precio:</th>
+                                                    <td class="precio fs-4" id="product-price">$0 COP</td>
+                                                </tr>
+                                                <tr>
+                                                    <th><i class="bi bi-box-seam"></i> Stock:</th>
+                                                    <td>
+                                                        <span id="product-stock" class="fs-5">0</span> unidades
+                                                        <span id="stock-badge" class="badge ms-2">OK</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <div class="d-grid gap-2">
+                                        <a href="#" id="edit-product-btn" class="btn btn-tusuper btn-lg">
+                                            <i class="bi bi-pencil"></i> Editar Producto
+                                        </a>
+                                        <button type="button" class="btn btn-outline-primary" id="scan-another-btn">
+                                            <i class="bi bi-upc-scan"></i> Escanear Otro
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Ajuste rápido de stock -->
+                                    <div class="card mt-3 bg-light">
+                                        <div class="card-body">
+                                            <h6><i class="bi bi-plus-slash-minus"></i> Ajuste Rápido de Stock</h6>
+                                            <div class="input-group">
+                                                <button class="btn btn-outline-danger" type="button" id="decrease-stock">
+                                                    <i class="bi bi-dash"></i>
+                                                </button>
+                                                <input type="number" class="form-control text-center" 
+                                                       id="stock-adjustment" value="1" min="1" max="100">
+                                                <button class="btn btn-outline-success" type="button" id="increase-stock">
+                                                    <i class="bi bi-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Producto no encontrado -->
+                    <div class="card shadow-sm border-warning d-none" id="not-found-state">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="mb-0">
+                                <i class="bi bi-exclamation-triangle-fill"></i> Producto No Encontrado
+                            </h5>
+                        </div>
+                        <div class="card-body text-center py-4">
+                            <p class="mb-3" id="not-found-message">No se encontró ningún producto</p>
+                            <p class="text-muted">Código buscado: <code id="searched-code" class="fs-5">-</code></p>
+                            <div class="d-grid gap-2 col-md-6 mx-auto">
+                                <a th:href="@{/tendero/productos/nuevo}" class="btn btn-success">
+                                    <i class="bi bi-plus-circle"></i> Registrar Nuevo Producto
+                                </a>
+                                <button type="button" class="btn btn-outline-primary" id="try-again-btn">
+                                    <i class="bi bi-arrow-repeat"></i> Intentar de Nuevo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Error -->
+                    <div class="card shadow-sm border-danger d-none" id="error-state">
+                        <div class="card-header bg-danger text-white">
+                            <h5 class="mb-0">
+                                <i class="bi bi-x-circle-fill"></i> Error
+                            </h5>
+                        </div>
+                        <div class="card-body text-center py-4">
+                            <p class="text-danger mb-3" id="error-message">Ha ocurrido un error</p>
+                            <button type="button" class="btn btn-outline-danger" id="retry-btn">
+                                <i class="bi bi-arrow-repeat"></i> Reintentar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Historial de escaneos recientes -->
+                <div class="card mt-4 shadow-sm">
+                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="bi bi-clock-history"></i> Escaneos Recientes</h5>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="clear-history-btn">
+                            <i class="bi bi-trash"></i> Limpiar
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="scan-history" class="table-responsive">
+                            <table class="table table-hover table-sm mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Hora</th>
+                                        <th>Código</th>
+                                        <th>Producto</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-body">
+                                    <tr id="no-history-row">
+                                        <td colspan="4" class="text-center text-muted py-3">
+                                            <i class="bi bi-inbox"></i> Sin escaneos recientes
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+    
+    <!-- Script del escáner de código de barras -->
+    <script th:src="@{/js/barcode-scanner.js}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Referencias a elementos del DOM
+            const barcodeInput = document.getElementById('barcode-input');
+            const searchBtn = document.getElementById('search-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            
+            // Estados
+            const initialState = document.getElementById('initial-state');
+            const loadingState = document.getElementById('loading-state');
+            const successState = document.getElementById('success-state');
+            const notFoundState = document.getElementById('not-found-state');
+            const errorState = document.getElementById('error-state');
+            
+            // Historial
+            const historyBody = document.getElementById('history-body');
+            const noHistoryRow = document.getElementById('no-history-row');
+            const clearHistoryBtn = document.getElementById('clear-history-btn');
+            
+            // Variable para almacenar el ID del producto actual
+            let currentProductId = null;
+            
+            /**
+             * Muestra un estado específico y oculta los demás
+             */
+            function showState(stateElement) {
+                [initialState, loadingState, successState, notFoundState, errorState].forEach(el => {
+                    el.classList.add('d-none');
+                });
+                stateElement.classList.remove('d-none');
+            }
+            
+            /**
+             * Formatea un número como precio colombiano
+             */
+            function formatPrice(price) {
+                return '$' + Number(price).toLocaleString('es-CO') + ' COP';
+            }
+            
+            /**
+             * Agrega una entrada al historial
+             */
+            function addToHistory(code, productName, found) {
+                noHistoryRow.classList.add('d-none');
+                
+                const now = new Date();
+                const time = now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><small>${time}</small></td>
+                    <td><code>${code}</code></td>
+                    <td>${productName || '-'}</td>
+                    <td>
+                        ${found 
+                            ? '<span class="badge bg-success"><i class="bi bi-check"></i> Encontrado</span>' 
+                            : '<span class="badge bg-warning"><i class="bi bi-x"></i> No encontrado</span>'}
+                    </td>
+                `;
+                
+                // Insertar al inicio
+                historyBody.insertBefore(row, historyBody.firstChild);
+                
+                // Mantener máximo 10 entradas
+                while (historyBody.children.length > 11) { // 10 + el row de "sin historial"
+                    historyBody.removeChild(historyBody.lastChild);
+                }
+            }
+            
+            /**
+             * Callback cuando se encuentra un producto
+             */
+            function onProductFound(producto, codigo) {
+                currentProductId = producto.id;
+                
+                // Actualizar UI con datos del producto
+                document.getElementById('product-name').textContent = producto.nombre;
+                document.getElementById('product-description').textContent = producto.descripcion || 'Sin descripción';
+                document.getElementById('product-barcode').textContent = producto.codigoBarras;
+                document.getElementById('product-category').textContent = producto.categoria || '-';
+                document.getElementById('product-brand').textContent = producto.marca || '-';
+                document.getElementById('product-price').textContent = formatPrice(producto.precio);
+                document.getElementById('product-stock').textContent = producto.cantidad;
+                
+                // Badge de stock
+                const stockBadge = document.getElementById('stock-badge');
+                if (producto.stockBajo) {
+                    stockBadge.className = 'badge bg-danger ms-2';
+                    stockBadge.textContent = '¡Stock Bajo!';
+                } else if (!producto.hayStock) {
+                    stockBadge.className = 'badge bg-danger ms-2';
+                    stockBadge.textContent = 'Sin Stock';
+                } else {
+                    stockBadge.className = 'badge bg-success ms-2';
+                    stockBadge.textContent = 'OK';
+                }
+                
+                // Enlace de edición
+                document.getElementById('edit-product-btn').href = `/tendero/productos/${producto.id}/editar`;
+                
+                showState(successState);
+                addToHistory(codigo, producto.nombre, true);
+                
+                // Limpiar input
+                barcodeInput.value = '';
+                barcodeInput.focus();
+            }
+            
+            /**
+             * Callback cuando hay un error o no se encuentra
+             */
+            function onError(mensaje, codigo) {
+                if (mensaje.includes('No se encontró')) {
+                    document.getElementById('not-found-message').textContent = mensaje;
+                    document.getElementById('searched-code').textContent = codigo;
+                    showState(notFoundState);
+                    addToHistory(codigo, null, false);
+                } else {
+                    document.getElementById('error-message').textContent = mensaje;
+                    showState(errorState);
+                }
+                
+                barcodeInput.value = '';
+                barcodeInput.focus();
+            }
+            
+            // Inicializar el escáner de código de barras
+            BarcodeScanner.init({
+                inputElement: barcodeInput,
+                onResult: onProductFound,
+                onError: onError,
+                globalCapture: true,
+                debug: false,
+                enableSounds: true
+            });
+            
+            // Botón de búsqueda manual
+            searchBtn.addEventListener('click', function() {
+                const code = barcodeInput.value.trim();
+                if (code) {
+                    document.getElementById('searching-code').textContent = 'Código: ' + code;
+                    showState(loadingState);
+                    BarcodeScanner.manualSearch(code);
+                }
+            });
+            
+            // Botón de limpiar
+            clearBtn.addEventListener('click', function() {
+                barcodeInput.value = '';
+                showState(initialState);
+                barcodeInput.focus();
+            });
+            
+            // Botones de reintentar
+            document.getElementById('scan-another-btn').addEventListener('click', function() {
+                barcodeInput.value = '';
+                showState(initialState);
+                barcodeInput.focus();
+            });
+            
+            document.getElementById('try-again-btn').addEventListener('click', function() {
+                barcodeInput.value = '';
+                showState(initialState);
+                barcodeInput.focus();
+            });
+            
+            document.getElementById('retry-btn').addEventListener('click', function() {
+                barcodeInput.value = '';
+                showState(initialState);
+                barcodeInput.focus();
+            });
+            
+            // Limpiar historial
+            clearHistoryBtn.addEventListener('click', function() {
+                while (historyBody.firstChild) {
+                    historyBody.removeChild(historyBody.firstChild);
+                }
+                historyBody.appendChild(noHistoryRow);
+                noHistoryRow.classList.remove('d-none');
+            });
+            
+            // Ajuste rápido de stock
+            document.getElementById('increase-stock').addEventListener('click', function() {
+                if (!currentProductId) return;
+                const cantidad = parseInt(document.getElementById('stock-adjustment').value) || 1;
+                
+                fetch(`/tendero/productos/${currentProductId}/stock?cantidad=${cantidad}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    credentials: 'same-origin'
+                }).then(response => {
+                    if (response.ok || response.redirected) {
+                        // Actualizar el stock mostrado
+                        const stockEl = document.getElementById('product-stock');
+                        stockEl.textContent = parseInt(stockEl.textContent) + cantidad;
+                        
+                        // Mostrar feedback
+                        const badge = document.getElementById('stock-badge');
+                        badge.className = 'badge bg-success ms-2';
+                        badge.textContent = '+' + cantidad + ' agregados';
+                        setTimeout(() => {
+                            badge.textContent = 'OK';
+                        }, 2000);
+                    }
+                }).catch(console.error);
+            });
+            
+            document.getElementById('decrease-stock').addEventListener('click', function() {
+                if (!currentProductId) return;
+                const cantidad = parseInt(document.getElementById('stock-adjustment').value) || 1;
+                
+                fetch(`/tendero/productos/${currentProductId}/stock?cantidad=${-cantidad}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    credentials: 'same-origin'
+                }).then(response => {
+                    if (response.ok || response.redirected) {
+                        const stockEl = document.getElementById('product-stock');
+                        const newStock = Math.max(0, parseInt(stockEl.textContent) - cantidad);
+                        stockEl.textContent = newStock;
+                        
+                        const badge = document.getElementById('stock-badge');
+                        badge.className = 'badge bg-warning ms-2';
+                        badge.textContent = '-' + cantidad + ' retirados';
+                        setTimeout(() => {
+                            if (newStock <= 5) {
+                                badge.className = 'badge bg-danger ms-2';
+                                badge.textContent = '¡Stock Bajo!';
+                            } else {
+                                badge.className = 'badge bg-success ms-2';
+                                badge.textContent = 'OK';
+                            }
+                        }, 2000);
+                    }
+                }).catch(console.error);
+            });
+            
+            // Focus inicial
+            barcodeInput.focus();
+        });
+    </script>
+</body>
+</html>
+

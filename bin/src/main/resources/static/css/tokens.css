@@ -1,0 +1,218 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * TUSUPER — DESIGN TOKENS (ROLE BASED)
+ * Sistema de Diseño: Base Neutra con Acentos por Rol
+ * ═══════════════════════════════════════════════════════════════════════════════
+ */
+
+:root {
+    /* ═══════════════════════════════════════════════════════════════════════════
+     * 1. PALETA DE COLORES — Por Roles
+     * ═══════════════════════════════════════════════════════════════════════════ */
+
+    /* Colores Base (Neutros Absolutos) */
+    --ts-black: #000000;
+    --ts-white: #FFFFFF;
+    --ts-cream: #F4F4F4;
+
+    /* Default (Usuario/General) - Verde Mate */
+    --ts-accent-primary: #2E7D32;
+    /* Verde Mate Principal */
+    --ts-accent-secondary: #81C784;
+    /* Verde Claro */
+    --ts-accent-electric: #1B5E20;
+    /* Verde Oscuro */
+    --ts-accent-neon: #00E676;
+    /* Verde Neón (Mantener para éxito) */
+    --ts-accent-magenta: #D500F9;
+    /* Magenta (Mantener para acentos) */
+
+    /* Escala de Grises */
+    --ts-gray-900: #121212;
+    --ts-gray-800: #212121;
+    --ts-gray-700: #424242;
+    --ts-gray-600: #616161;
+    --ts-gray-500: #757575;
+    --ts-gray-400: #9E9E9E;
+    --ts-gray-300: #BDBDBD;
+    --ts-gray-200: #E0E0E0;
+    --ts-gray-100: #F5F5F5;
+
+    /* Estados Semánticos */
+    --ts-success: #2E7D32;
+    --ts-warning: #F9A825;
+    --ts-error: #C62828;
+    --ts-info: #1565C0;
+
+    /* Estados de Pedido */
+    --ts-estado-pendiente: #F9A825;
+    --ts-estado-confirmado: #1565C0;
+    --ts-estado-preparacion: #7B1FA2;
+    --ts-estado-listo: #2E7D32;
+    --ts-estado-camino: #EF6C00;
+    --ts-estado-entregado: #00C853;
+    --ts-estado-cancelado: #C62828;
+
+    /* Overlays */
+    --ts-overlay-warm: rgba(46, 125, 50, 0.1);
+    --ts-overlay-cool: rgba(21, 101, 192, 0.1);
+    --ts-overlay-dark: rgba(0, 0, 0, 0.8);
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+     * 2. TIPOGRAFÍA
+     * ═══════════════════════════════════════════════════════════════════════════ */
+
+    /* Font Families */
+    --ts-font-display: 'MoMo Trust Display', 'Syne', 'Impact', sans-serif;
+    --ts-font-body: 'Varela Round', 'Nunito', sans-serif;
+    --ts-font-mono: 'JetBrains Mono', monospace;
+
+    /* Font Sizes */
+    --ts-text-xs: 0.75rem;
+    --ts-text-sm: 0.875rem;
+    --ts-text-base: 1rem;
+    --ts-text-lg: 1.125rem;
+    --ts-text-xl: 1.25rem;
+    --ts-text-2xl: 1.5rem;
+    --ts-text-3xl: 1.875rem;
+    --ts-text-4xl: 2.25rem;
+    --ts-text-5xl: 3rem;
+    --ts-text-6xl: 3.75rem;
+    --ts-text-7xl: 4.5rem;
+
+    /* Font Weights */
+    --ts-font-regular: 400;
+    --ts-font-medium: 500;
+    --ts-font-semibold: 600;
+    --ts-font-bold: 700;
+    --ts-font-black: 900;
+
+    /* Line Heights */
+    --ts-leading-tight: 1.1;
+    --ts-leading-snug: 1.25;
+    --ts-leading-normal: 1.5;
+    --ts-leading-relaxed: 1.625;
+
+    /* Letter Spacing */
+    --ts-tracking-tighter: -0.05em;
+    --ts-tracking-tight: -0.025em;
+    --ts-tracking-normal: 0;
+    --ts-tracking-wide: 0.025em;
+    --ts-tracking-wider: 0.05em;
+    --ts-tracking-widest: 0.15em;
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+     * 3. ESPACIADO
+     * ═══════════════════════════════════════════════════════════════════════════ */
+
+    --ts-space-0: 0;
+    --ts-space-1: 0.25rem;
+    --ts-space-2: 0.5rem;
+    --ts-space-3: 0.75rem;
+    --ts-space-4: 1rem;
+    --ts-space-5: 1.25rem;
+    --ts-space-6: 1.5rem;
+    --ts-space-8: 2rem;
+    --ts-space-10: 2.5rem;
+    --ts-space-12: 3rem;
+    --ts-space-16: 4rem;
+    --ts-space-20: 5rem;
+    --ts-space-24: 6rem;
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+     * 4. BORDES Y SOMBRAS
+     * ═══════════════════════════════════════════════════════════════════════════ */
+
+    /* Border Width */
+    --ts-border-thin: 1px;
+    --ts-border-medium: 2px;
+    --ts-border-thick: 3px;
+    --ts-border-heavy: 4px;
+    --ts-border-brutal: 5px;
+
+    /* Border Radius */
+    --ts-radius-none: 0;
+    --ts-radius-sm: 8px;
+    --ts-radius-md: 16px;
+    --ts-radius-lg: 24px;
+    --ts-radius-pill: 9999px;
+
+    /* Sombras Duras */
+    --ts-shadow-brutal-sm: 2px 2px 0 var(--ts-black);
+    --ts-shadow-brutal-md: 4px 4px 0 var(--ts-black);
+    --ts-shadow-brutal-lg: 6px 6px 0 var(--ts-black);
+    --ts-shadow-brutal-xl: 8px 8px 0 var(--ts-black);
+
+    /* Sombras Vibrantes */
+    --ts-shadow-accent: 4px 4px 0 var(--ts-accent-primary);
+    --ts-shadow-electric: 4px 4px 0 var(--ts-accent-electric);
+    --ts-shadow-neon: 4px 4px 0 var(--ts-accent-neon);
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+     * 5. BREAKPOINTS
+     * ═══════════════════════════════════════════════════════════════════════════ */
+
+    --ts-bp-sm: 576px;
+    --ts-bp-md: 768px;
+    --ts-bp-lg: 992px;
+    --ts-bp-xl: 1200px;
+    --ts-bp-2xl: 1400px;
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+     * 6. TRANSICIONES
+     * ═══════════════════════════════════════════════════════════════════════════ */
+
+    --ts-transition-fast: 150ms ease;
+    --ts-transition-base: 250ms ease;
+    --ts-transition-slow: 350ms ease;
+    --ts-transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+     * 7. Z-INDEX
+     * ═══════════════════════════════════════════════════════════════════════════ */
+
+    --ts-z-base: 0;
+    --ts-z-dropdown: 100;
+    --ts-z-sticky: 200;
+    --ts-z-fixed: 300;
+    --ts-z-modal-backdrop: 400;
+    --ts-z-modal: 500;
+    --ts-z-popover: 600;
+    --ts-z-toast: 700;
+}
+
+/* TEMA ADMIN — Rojo Mate */
+body.theme-admin {
+    --ts-accent-primary: #C62828;
+    /* Rojo Mate */
+    --ts-accent-secondary: #EF9A9A;
+    /* Rojo Claro */
+    --ts-accent-electric: #B71C1C;
+    /* Rojo Oscuro */
+    --ts-overlay-warm: rgba(198, 40, 40, 0.1);
+    --ts-shadow-accent: 4px 4px 0 var(--ts-accent-primary);
+}
+
+/* TEMA TENDERO — Azul Oscuro Mate */
+body.theme-tendero {
+    --ts-accent-primary: #1565C0;
+    /* Azul Mate */
+    --ts-accent-secondary: #90CAF9;
+    /* Azul Claro */
+    --ts-accent-electric: #0D47A1;
+    /* Azul Oscuro */
+    --ts-overlay-warm: rgba(21, 101, 192, 0.1);
+    --ts-shadow-accent: 4px 4px 0 var(--ts-accent-primary);
+}
+
+/* TEMA USUARIO — Verde Mate (Explicito) */
+body.theme-usuario {
+    --ts-accent-primary: #2E7D32;
+    /* Verde Mate */
+    --ts-accent-secondary: #81C784;
+    /* Verde Claro */
+    --ts-accent-electric: #1B5E20;
+    /* Verde Oscuro */
+    --ts-overlay-warm: rgba(46, 125, 50, 0.1);
+    --ts-shadow-accent: 4px 4px 0 var(--ts-accent-primary);
+}

@@ -1,0 +1,275 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * TUSUPER — PÁGINAS DE AUTENTICACIÓN
+ * Estilos brutalistas para Login y Registro
+ * ═══════════════════════════════════════════════════════════════════════════════
+ */
+
+/* Contenedor de página de auth */
+.ts-auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--ts-space-6);
+    background: var(--ts-cream);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Patrón de fondo brutalista */
+.ts-auth-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 40px,
+            var(--ts-gray-200) 40px,
+            var(--ts-gray-200) 41px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 40px,
+            var(--ts-gray-200) 40px,
+            var(--ts-gray-200) 41px
+        );
+    opacity: 0.5;
+}
+
+/* Acento diagonal */
+.ts-auth-page::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 200%;
+    background: var(--ts-accent-primary);
+    transform: rotate(-15deg);
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+/* Card de autenticación */
+.ts-auth-card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
+    background: var(--ts-white);
+    border: var(--ts-border-brutal) solid var(--ts-black);
+    box-shadow: 12px 12px 0 var(--ts-black);
+}
+
+.ts-auth-card-body {
+    padding: var(--ts-space-10);
+}
+
+/* Header de auth */
+.ts-auth-header {
+    text-align: center;
+    margin-bottom: var(--ts-space-8);
+}
+
+.ts-auth-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    background: var(--ts-black);
+    border: var(--ts-border-thick) solid var(--ts-accent-primary);
+    margin-bottom: var(--ts-space-5);
+    position: relative;
+}
+
+.ts-auth-logo::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 2px dashed var(--ts-accent-secondary);
+}
+
+.ts-auth-logo i {
+    font-size: var(--ts-text-5xl);
+    color: var(--ts-white);
+}
+
+.ts-auth-title {
+    font-family: var(--ts-font-display);
+    font-size: var(--ts-text-4xl);
+    font-weight: var(--ts-font-black);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-wider);
+    margin-bottom: var(--ts-space-2);
+    color: var(--ts-black);
+}
+
+.ts-auth-subtitle {
+    font-family: var(--ts-font-body);
+    font-size: var(--ts-text-base);
+    color: var(--ts-gray-500);
+    font-weight: var(--ts-font-medium);
+}
+
+/* Formulario de auth */
+.ts-auth-form .form-label {
+    font-size: var(--ts-text-xs);
+    font-weight: var(--ts-font-black);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-widest);
+    margin-bottom: var(--ts-space-2);
+}
+
+.ts-auth-form .input-group {
+    margin-bottom: var(--ts-space-5);
+}
+
+.ts-auth-form .input-group-text {
+    width: 50px;
+    justify-content: center;
+    background: var(--ts-accent-primary);
+    border: var(--ts-border-medium) solid var(--ts-black);
+    color: var(--ts-white);
+}
+
+.ts-auth-form .form-control {
+    border-left: none;
+    padding: var(--ts-space-4);
+    font-size: var(--ts-text-base);
+}
+
+.ts-auth-form .form-control:focus {
+    border-color: var(--ts-black);
+}
+
+.ts-auth-form .input-group:focus-within {
+    box-shadow: 6px 6px 0 var(--ts-accent-primary);
+}
+
+.ts-auth-form .input-group:focus-within .input-group-text {
+    background: var(--ts-black);
+}
+
+/* Botón submit de auth */
+.ts-auth-submit {
+    width: 100%;
+    padding: var(--ts-space-4) var(--ts-space-6);
+    font-size: var(--ts-text-lg);
+    margin-top: var(--ts-space-4);
+}
+
+/* Separador */
+.ts-auth-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--ts-space-4);
+    margin: var(--ts-space-6) 0;
+}
+
+.ts-auth-divider::before,
+.ts-auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 3px;
+    background: var(--ts-black);
+}
+
+.ts-auth-divider span {
+    font-family: var(--ts-font-display);
+    font-size: var(--ts-text-sm);
+    font-weight: var(--ts-font-bold);
+    text-transform: uppercase;
+    color: var(--ts-gray-500);
+}
+
+/* Link de navegación entre login/registro */
+.ts-auth-link {
+    text-align: center;
+    font-size: var(--ts-text-base);
+    color: var(--ts-gray-600);
+}
+
+.ts-auth-link a {
+    color: var(--ts-accent-primary);
+    font-weight: var(--ts-font-bold);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color var(--ts-transition-fast);
+}
+
+.ts-auth-link a:hover {
+    border-bottom-color: var(--ts-accent-primary);
+}
+
+/* Usuarios de prueba */
+.ts-auth-demo {
+    position: relative;
+    z-index: 1;
+    margin-top: var(--ts-space-6);
+    padding: var(--ts-space-4);
+    background: var(--ts-gray-100);
+    border: var(--ts-border-medium) solid var(--ts-black);
+    text-align: center;
+}
+
+.ts-auth-demo-title {
+    font-family: var(--ts-font-body);
+    font-size: var(--ts-text-xs);
+    font-weight: var(--ts-font-black);
+    text-transform: uppercase;
+    letter-spacing: var(--ts-tracking-widest);
+    color: var(--ts-black);
+    margin-bottom: var(--ts-space-2);
+}
+
+.ts-auth-demo-content {
+    font-size: var(--ts-text-sm);
+    color: var(--ts-gray-600);
+    line-height: var(--ts-leading-relaxed);
+}
+
+.ts-auth-demo-content strong {
+    color: var(--ts-black);
+}
+
+/* Alertas dentro de auth */
+.ts-auth-card .alert {
+    margin-bottom: var(--ts-space-5);
+    font-size: var(--ts-text-sm);
+}
+
+/* Responsive */
+@media (max-width: 575.98px) {
+    .ts-auth-page {
+        padding: var(--ts-space-4);
+    }
+    
+    .ts-auth-card {
+        box-shadow: 8px 8px 0 var(--ts-black);
+    }
+    
+    .ts-auth-card-body {
+        padding: var(--ts-space-6);
+    }
+    
+    .ts-auth-logo {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .ts-auth-logo i {
+        font-size: var(--ts-text-4xl);
+    }
+    
+    .ts-auth-title {
+        font-size: var(--ts-text-3xl);
+    }
+}
